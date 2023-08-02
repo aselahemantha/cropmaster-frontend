@@ -6,50 +6,105 @@ import { useState, useEffect } from 'react';
 
 
 export default function Student() {
+
+    const nic = '200021404098';
+
     const paperStyle = { padding: '50px 20px', width: '500', margin: '20px auto' };
     const [name, setName] = useState('');
     const [type, setType] = useState('');
-    const [method, setMethod] = useState('');
+    const [transmission, setTransmission] = useState('');
+    const [symptom, setSymptom] = useState('');
 
-    const [diseases, setDiseases] = useState([]);
-    const [farmlands, setFarmlands] = useState([]);
+
     const [selectedDisease, setSelectedDisease] = useState('');
     const [selectedFarmland, setSelectedFarmland] = useState('');
 
-
-
-    const [farmerData, setFarmerData] = useState([]);
+    const [farmlandData, setFarmlandData] = useState([]);
+    const [diseaseData, setDiseaseData] = useState([]);
 
     useEffect(() => {
-        const fetchFarmerData = async () => {
+        const fetchFarmLandData = async () => {
             try {
-                const response = await fetch('http://localhost:8080/farmer/getAll');
+                const response = await fetch('http://localhost:8080/farmland/getAll');
                 if (!response.ok) {
                     throw new Error('Failed to fetch farmer data');
                 }
                 const data = await response.json();
-                setFarmerData(data);
+                setFarmlandData(data);
                 console.log(data);
             } catch (error) {
                 console.error(error);
             }
         };
 
-        fetchFarmerData();
+        fetchFarmLandData();
     }, []);
 
-    console.log(farmerData);
+    useEffect(() => {
+        const fetchDiseaseData = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/disease/getAll');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch disease data');
+                }
+                const data = await response.json();
+                setDiseaseData(data);
+                console.log(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchDiseaseData();
+    }, []);
+
+
 
     const handleSubmit = () => {
         // Prepare the data object to send in the POST request
         const data = {
             name: name,
             type: type,
-            method: method,
+            symptom: symptom,
+            transmission: transmission,
         };
 
         // Make the POST request using fetch
         fetch('http://localhost:8080/disease/addNew', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Failed to submit the form.');
+                }
+                return response.json();
+            })
+            .then((responseData) => {
+                // Handle the response from the backend if needed
+                console.log('Form submitted successfully:', responseData);
+                // Add any logic you need here after the form is successfully submitted
+            })
+            .catch((error) => {
+                // Handle errors
+                console.error('Error submitting the form:', error);
+                // Add any error handling logic here if needed
+            });
+    };
+
+    const handleDiseaseSubmit = () => {
+        // Prepare the data object to send in the POST request
+        const data = {
+            farmlandID: selectedFarmland,
+            diseaseID: selectedDisease,
+            nic: nic,
+        };
+
+        // Make the POST request using fetch
+        fetch('http://localhost:8080/hostcrop/addNew', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -107,11 +162,19 @@ export default function Student() {
                     />
                     <TextField
                         id="outlined-basic"
-                        label="Method"
+                        label="Transmission"
                         variant="outlined"
                         fullWidth={true}
-                        value={method}
-                        onChange={(e) => setMethod(e.target.value)}
+                        value={transmission}
+                        onChange={(e) => setTransmission(e.target.value)}
+                    />
+                    <TextField
+                        id="outlined-basic"
+                        label="Symptoms"
+                        variant="outlined"
+                        fullWidth={true}
+                        value={symptom}
+                        onChange={(e) => setSymptom(e.target.value)}
                     />
                     <br />
                     <Box display="flex" justifyContent="left" alignItems="center" height={50} margin="auto">
@@ -129,30 +192,30 @@ export default function Student() {
 
                 {/* Select for Farmers */}
                 <FormControl fullWidth variant="outlined">
-                    <InputLabel>Farmer</InputLabel>
+                    <InputLabel>Farm Land</InputLabel>
                     <Select
                         value={selectedFarmland}
                         onChange={(e) => setSelectedFarmland(e.target.value)}
-                        label="Farmer"
+                        label="Farmeland"
                     >
-                        {farmerData.map((farmer) => (
-                            <MenuItem key={farmer.farmerID} value={farmer.name}>
-                                {farmer.name}
+                        {farmlandData.map((farmland) => (
+                            <MenuItem key={farmland.farmlandID} value={farmland.farmlandID}>
+                                {farmland.name}
                             </MenuItem>
                         ))}
                     </Select>
                 </FormControl>
 
                 <FormControl fullWidth variant="outlined">
-                    <InputLabel>Farmer</InputLabel>
+                    <InputLabel>Disease</InputLabel>
                     <Select
-                        value={selectedFarmland}
-                        onChange={(e) => setSelectedFarmland(e.target.value)}
-                        label="Farmer"
+                        value={selectedDisease}
+                        onChange={(e) => setSelectedDisease(e.target.value)}
+                        label="Disease"
                     >
-                        {farmerData.map((farmer) => (
-                            <MenuItem key={farmer.farmerID} value={farmer.name}>
-                                {farmer.name}
+                        {diseaseData.map((disease) => (
+                            <MenuItem key={disease.diseaseID} value={disease.diseaseID}>
+                                {disease.name}
                             </MenuItem>
                         ))}
                     </Select>
@@ -162,18 +225,13 @@ export default function Student() {
 
                 <br />
                 <Box display="flex" justifyContent="left" alignItems="center" height={50} margin="auto">
-                    <Button variant="contained" color="primary" onClick={handleSubmit}>
+                    <Button variant="contained" color="primary" onClick={handleDiseaseSubmit}>
                         SUBMIT
                     </Button>
                 </Box>
             </Paper>
 
-
-
-
         </Container>
-
-
 
     );
 }
