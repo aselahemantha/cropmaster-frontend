@@ -16,23 +16,32 @@ const bull = (
     </Box>
 );
 
-function FarmLandCard({ nic, name, age, mobile, experience }) {
+function FarmLandCard({ farmlandID, name, size, location, experience, isCropped }) {
     const cardContent = (
         <React.Fragment>
             <CardContent>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Farmer ID: {nic}
+                    Farmland ID: {farmlandID}
                 </Typography>
                 <Typography variant="h5" component="div">
                     {name}
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    Age: {age}
+                    Size: {size}
                 </Typography>
-                <Typography variant="body2">Mobile: {mobile}</Typography>
+                <Typography variant="body2">Location: {location}</Typography>
                 <Typography variant="body2">Experience: {experience || 'N/A'}</Typography>
             </CardContent>
             <CardActions>
+                {isCropped ? (
+                    <Button size="small" color="primary">
+                        Change Plant
+                    </Button>
+                ) : (
+                    <Button size="small" color="primary">
+                        Plant
+                    </Button>
+                )}
                 <Button size="small">Learn More</Button>
             </CardActions>
         </React.Fragment>
