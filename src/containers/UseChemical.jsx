@@ -217,7 +217,7 @@ const AddChemical = () => {
           </FormControl>
           <br />
           <Box display="flex" justifyContent="left" alignItems="center" height={50} margin="auto">
-            <Button variant="contained" color="primary"  >
+            <Button variant="contained" color="primary" onClick={handleChemicalUsageSubmit}  >
               SUBMIT
             </Button>
           </Box>
