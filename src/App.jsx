@@ -9,11 +9,17 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Sidebar, Menu, MenuItem, SubMenu, ProSidebarProvider } from 'react-pro-sidebar';
 
 import { Box, Button, Container, ThemeProvider, Typography } from '@mui/material';
-import SideNav from './components/SideNav';
-import AppHeader from './components/AppHeader';
 import theme from './config/theme';
 import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './router/AppRoutes';
+
+// Farmer UI
+//import SideNav from './components/farmer/SideNav.jsx';
+//import AppHeader from './components/farmer/AppHeader.jsx';
+
+// Owner UI
+import SideNavOwner from './components/owner/SideNav.jsx';
+import AppHeaderOwner from './components/owner/AppHeader.jsx';
 
 function App() {
   return (
@@ -22,10 +28,10 @@ function App() {
         <ProSidebarProvider>
           <CssBaseline />                 {/*to add css basic rules */}
 
-          <AppHeader />
+          <AppHeaderOwner />
           <Box sx={styles.container}>
             <BrowserRouter>
-              <SideNav />
+              <SideNavOwner />
               <Box
                 component={'main'}
                 sx={styles.mainSection}
