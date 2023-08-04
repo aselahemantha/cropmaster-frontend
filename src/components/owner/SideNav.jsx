@@ -31,7 +31,7 @@ function SideNav() {
                     };
                 },
             }}>
-            <MenuItem active={window.location.pathname === "/"} component={<Link to="/" />} icon={<HomeOutlinedIcon />}> <Typography variant="body2">Home</Typography> </MenuItem>
+            <MenuItem active={window.location.pathname === "/ownerhome"} component={<Link to="/ownerhome" />} icon={<HomeOutlinedIcon />}> <Typography variant="body2">Home</Typography> </MenuItem>
             <MenuItem active={window.location.pathname === "/addfarmer"} component={<Link to="/addfarmer" />} icon={<AccountCircleIcon />}> <Typography variant="body2">Farmer Details </Typography></MenuItem>
             <MenuItem active={window.location.pathname === "/addfarmland"} component={<Link to="/addfarmland" />} icon={<GrassIcon />}> <Typography variant="body2"> Farm Land </Typography></MenuItem>
 

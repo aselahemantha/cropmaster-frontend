@@ -16,22 +16,32 @@ import AddFarmland from '../containers/owner/AddFarmland.jsx';
 
 // Home
 import NewHome from "../containers/Home.jsx";
+import FarmerLayout from "../containers/FarmerLayout.jsx";
+import OwnerLayout from "../containers/OwnerLayout.jsx";
+
+// Login & SignUp pages
 
 
 const AppRoutes = () => {
     return <Routes>
-        <Route path='/' element={<OwnerHome />} />
+        <Route path='/' element={<NewHome />} />
 
-        <Route path='/farmerhome' element={<FarmerHome />} />
-        <Route path='/reportdisease' element={<ReportDisease />} />
-        <Route path='/usechemical' element={<UseChemical />} />
-        <Route path='/usemachine' element={<UseMachine />} />
-        <Route path='/irrigation' element={<Irrigation />} />
-        <Route path='/harvest' element={<Harvest />} />
-        <Route path='/storage' element={<Storage />} />
+        <Route path={"/"} element={<FarmerLayout/>}>
+            <Route path='/farmerhome' element={<FarmerHome />} />
+            <Route path='/reportdisease' element={<ReportDisease />} />
+            <Route path='/usechemical' element={<UseChemical />} />
+            <Route path='/usemachine' element={<UseMachine />} />
+            <Route path='/irrigation' element={<Irrigation />} />
+            <Route path='/harvest' element={<Harvest />} />
+            <Route path='/storage' element={<Storage />} />
+        </Route>
 
-        <Route path='/addfarmer' element={<AddFarmer />} />
-        <Route path='/addfarmland' element={<AddFarmland />} />
+        <Route path={"/"} element={<OwnerLayout/>}>
+            <Route path='/ownerhome' element={<OwnerHome />} />
+            <Route path='/addfarmer' element={<AddFarmer />} />
+            <Route path='/addfarmland' element={<AddFarmland />} />
+        </Route>
+
 
     </Routes>
 };
