@@ -23,8 +23,12 @@ const Home = () => {
             navigate('/farmerhome');
         } else if (userType === 'owner') {
             navigate('/ownerhome');
+        } else {
+            // Reload the current page
+            window.location.reload();
         }
     };
+
 
     return (
         <Container style={containerStyle}>
@@ -50,6 +54,12 @@ const Home = () => {
                     </Button>
                 </Box>
             </Box>
+            <Link to={"/signup"}>
+                <Typography variant="h6" align="center" color="text.primary">
+                    sign up
+                </Typography>
+            </Link>
+
         </Container>
     );
 };

@@ -20,11 +20,12 @@ import FarmerLayout from "../containers/FarmerLayout.jsx";
 import OwnerLayout from "../containers/OwnerLayout.jsx";
 
 // Login & SignUp pages
-
+import Signup from "../containers/login/Signup.jsx";
 
 const AppRoutes = () => {
     return <Routes>
         <Route path='/' element={<NewHome />} />
+        <Route path='/signup' element={<Signup/>}/>
 
         <Route path={"/"} element={<FarmerLayout/>}>
             <Route path='/farmerhome' element={<FarmerHome />} />
