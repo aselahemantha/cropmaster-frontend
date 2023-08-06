@@ -3,26 +3,22 @@ import React from 'react';
 import { Box, Button, Container, Typography } from '@mui/material';
 import AppHeader from "../components/farmer/AppHeader.jsx";
 import SideNav from "../components/farmer/SideNav.jsx";
-import {BrowserRouter, Outlet, useNavigation} from "react-router-dom";
-import SideNavOwner from "../components/owner/SideNav.jsx";
-import AppRoutes from "../router/AppRoutes.jsx";
+import {Outlet} from "react-router-dom";
+import {useNic} from "../components/NicContext.jsx";
 
 const FarmerLayout = () => {
-
-
+    const { nic } = useNic(); // Get the nic value from context
 
     return (
         <>
-            <AppHeader/>
-            <Box sx={styles.container}>
-                    <SideNav/>
-                    <Box
-                        component={'main'}
-                        sx={styles.mainSection}
-                    >
-                        <Outlet/>
-                    </Box>
+            <AppHeader />
 
+            <Box sx={styles.container}>
+                <SideNav />
+                <Box component={'main'} sx={styles.mainSection}>
+                    {/* Pass the nic value to child components */}
+                    <Outlet nic={nic} />
+                </Box>
             </Box>
         </>
     );

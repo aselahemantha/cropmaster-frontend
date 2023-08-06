@@ -7,6 +7,7 @@ import {
     Container,
     Paper, TextField,
 } from '@mui/material';
+import {useNic} from "../../components/NicContext.jsx";
 
 const AddHarvestMethod = () => {
     const [harvestData, setHarvestData] = useState({
@@ -48,6 +49,8 @@ const AddHarvestMethod = () => {
     const [farmlands, setFarmlands] = useState([]);
     const [selectedHarvestMethod, setSelectedHarvestMethod] = useState('');
     const [selectedFarmland, setSelectedFarmland] = useState('');
+    const { nic } = useNic(); // Get the nic value from context
+
 
     useEffect(() => {
         const fetchHarvestMethods = async () => {
@@ -65,7 +68,7 @@ const AddHarvestMethod = () => {
 
         const fetchFarmlands = async () => {
             try {
-                const response = await fetch('http://localhost:8080/farmland/getAll');
+                const response = await fetch(`http://localhost:8080/farmland/getAll/${nic}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch farmlands');
                 }
@@ -78,7 +81,7 @@ const AddHarvestMethod = () => {
 
         fetchHarvestMethods();
         fetchFarmlands();
-    }, []);
+    }, [nic]);
 
     const handleAssignHarvest = async () => {
         try {

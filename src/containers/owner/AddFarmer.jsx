@@ -2,6 +2,7 @@
 import React from 'react';
 import { Box, Divider, Typography } from '@mui/material';
 import FarmerCard from "../../components/owner/FarmerCard.jsx";
+import {useNic} from "../../components/NicContext.jsx";
 
 const OwnerHome = () => {
     const farmers = [
@@ -18,6 +19,9 @@ const OwnerHome = () => {
         },
         // ... other farmer data
     ];
+
+    const { nic } = useNic(); // Get the nic value from context
+
 
     return (
         <Box>

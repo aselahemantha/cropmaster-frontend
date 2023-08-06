@@ -1,11 +1,14 @@
 // AddFarmland.jsx
 import React, { useState } from 'react';
 import { Container, Typography, TextField, Button, Box } from '@mui/material';
+import {useNic} from "../../components/NicContext.jsx";
 
 const AddFarmland = () => {
     const [name, setName] = useState('');
     const [size, setSize] = useState('');
     const [location, setLocation] = useState('');
+    const { nic } = useNic(); // Get the nic value from context
+
 
     const handleAddFarmland = () => {
         // Perform logic to add farmland using the entered data

@@ -1,7 +1,24 @@
 import React, { useState } from 'react';
-import { Box, Button, Container, FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
+import {
+    Box,
+    Button,
+    Container,
+    FormControl,
+    FormControlLabel,
+    Radio,
+    RadioGroup,
+    Snackbar,
+    TextField,
+    Typography
+} from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 import backgroundImage from '../assets/background/background.jpg';
 import { Link, useNavigate } from 'react-router-dom';
+import {useNic} from "../components/NicContext.jsx";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const Home = () => {
     const containerStyle = {
@@ -17,18 +34,51 @@ const Home = () => {
 
     const navigate = useNavigate();
     const [userType, setUserType] = useState('farmer');
+    const [nicValue, setNicValue] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSignIn = () => {
-        if (userType === 'farmer') {
-            navigate('/farmerhome');
-        } else if (userType === 'owner') {
-            navigate('/ownerhome');
-        } else {
-            // Reload the current page
-            window.location.reload();
+    const { setNic } = useNic(); // Get the setNic function from context
+
+    const handleSignIn = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/${userType}/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nic: nicValue,
+                    password: password,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setNic(nicValue);
+                // Login successful, navigate to corresponding page
+                if (userType === 'farmer') {
+                    navigate(`/farmerhome`);
+                } else if (userType === 'owner') {
+                    navigate(`/ownerhome`);
+                }
+            } else {
+                // Handle login error and show snackbar with error message
+                setErrorMessage(data.error);
+                setErrorSnackbarOpen(true);
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            // Handle error (e.g., network issue)
         }
     };
 
+    const handleSnackbarClose = () => {
+        setErrorSnackbarOpen(false);
+        setErrorMessage('');
+    };
 
     return (
         <Container style={containerStyle}>
@@ -36,6 +86,20 @@ const Home = () => {
                 Welcome to Your Farm App
             </Typography>
             <Box mt={4}>
+                <TextField
+                    label="NIC"
+                    fullWidth
+                    margin="normal"
+                    value={nicValue}
+                    onChange={(e) => setNicValue(e.target.value)}
+                />
+                <TextField
+                    label="Password"
+                    fullWidth
+                    margin="normal"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
                 <FormControl component="fieldset">
                     <RadioGroup
                         row
@@ -54,12 +118,23 @@ const Home = () => {
                     </Button>
                 </Box>
             </Box>
-            <Link to={"/signup"}>
+            <Link to={"/signupfarmer"}>
                 <Typography variant="h6" align="center" color="text.primary">
-                    sign up
+                    Sign Up as Farmer
                 </Typography>
             </Link>
 
+            <Link to={"/signupowner"}>
+                <Typography variant="h6" align="center" color="text.primary">
+                    Sign Up as Owner
+                </Typography>
+            </Link>
+
+            <Snackbar open={errorSnackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
+                <Alert onClose={handleSnackbarClose} severity="error">
+                    {errorMessage}
+                </Alert>
+            </Snackbar>
         </Container>
     );
 };

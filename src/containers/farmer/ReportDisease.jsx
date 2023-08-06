@@ -3,11 +3,11 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container, Paper, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { useState, useEffect } from 'react';
+import {useNic} from "../../components/NicContext.jsx";
 
+export default function ReportDisease() {
 
-export default function Student() {
-
-    const nic = '200021404098';
+    const { nic } = useNic(); // Get the nic value from context
 
     const paperStyle = { padding: '50px 20px', width: '500', margin: '20px auto' };
     const [name, setName] = useState('');
@@ -25,7 +25,7 @@ export default function Student() {
     useEffect(() => {
         const fetchFarmLandData = async () => {
             try {
-                const response = await fetch('http://localhost:8080/farmland/getAll');
+                const response = await fetch(`http://localhost:8080/farmland/getAll/${nic}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch farmer data');
                 }
@@ -38,7 +38,7 @@ export default function Student() {
         };
 
         fetchFarmLandData();
-    }, []);
+    }, [nic]);
 
     useEffect(() => {
         const fetchDiseaseData = async () => {
@@ -131,6 +131,7 @@ export default function Student() {
 
     return (
         <Container>
+            Nic: {nic}
             <Paper elevation={3} style={paperStyle}>
                 <Box display="flex" justifyContent="center" alignItems="center" height={50}>
                     <h1>Add a Disease</h1>

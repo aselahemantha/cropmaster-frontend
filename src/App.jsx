@@ -20,6 +20,7 @@ import AppRoutes from './router/AppRoutes';
 // Owner UI
 import SideNavOwner from './components/owner/SideNav.jsx';
 import AppHeaderOwner from './components/owner/AppHeader.jsx';
+import {NicProvider} from "./components/NicContext.jsx";
 
 function App() {
   return (
@@ -28,7 +29,9 @@ function App() {
         <ProSidebarProvider>
           <CssBaseline />                 {/*to add css basic rules */}
             <BrowserRouter>
-                <AppRoutes />
+                <NicProvider>
+                    <AppRoutes />
+                </NicProvider>
             </BrowserRouter>
         </ProSidebarProvider>
       </ThemeProvider>

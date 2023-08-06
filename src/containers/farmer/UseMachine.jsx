@@ -12,10 +12,11 @@ import {
     MenuItem
 } from '@mui/material';
 import Box from "@mui/material/Box";
+import {useNic} from "../../components/NicContext.jsx";
 
 const AddMachine = () => {
 
-    const nic = '200021404098';
+    const { nic } = useNic(); // Get the nic value from context
 
     const [selectedMachinery, setSelectedMachinery] = useState('');
     const [selectedFarmland, setSelectedFarmland] = useState('');
@@ -34,7 +35,7 @@ const AddMachine = () => {
     useEffect(() => {
         const fetchFarmLandData = async () => {
             try {
-                const response = await fetch('http://localhost:8080/farmland/getAll');
+                const response = await fetch(`http://localhost:8080/farmland/getAll/${nic}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch farmer data');
                 }
@@ -47,7 +48,7 @@ const AddMachine = () => {
         };
 
         fetchFarmLandData();
-    }, []);
+    }, [nic]);
 
     useEffect(() => {
         const fetchMachineryData = async () => {

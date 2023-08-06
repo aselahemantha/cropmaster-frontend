@@ -11,6 +11,7 @@ import {
   FormControl,
   InputLabel,
 } from '@mui/material';
+import {useNic} from "../../components/NicContext.jsx";
 
 const AddIrrigationMethod = () => {
   const [irrigationData, setIrrigationData] = useState({
@@ -26,6 +27,8 @@ const AddIrrigationMethod = () => {
   const [irrigationMethods, setIrrigationMethods] = useState([]);
   const [selectedFarmland, setSelectedFarmland] = useState('');
   const [selectedIrrigation, setSelectedIrrigation] = useState('');
+  const { nic } = useNic(); // Get the nic value from context
+
 
   useEffect(() => {
     const fetchFarmers = async () => {
@@ -48,7 +51,7 @@ const AddIrrigationMethod = () => {
   useEffect(() => {
     const fetchFarmlands = async () => {
       try {
-        const response = await fetch('http://localhost:8080/farmland/getAll');
+        const response = await fetch(`http://localhost:8080/farmland/getAll/${nic}`);
         if (!response.ok) {
           throw new Error('Failed to fetch farmland data');
         }
@@ -61,7 +64,7 @@ const AddIrrigationMethod = () => {
     };
 
     fetchFarmlands();
-  }, []);
+  }, [nic]);
 
   useEffect(() => {
     const fetchIrrigations = async () => {

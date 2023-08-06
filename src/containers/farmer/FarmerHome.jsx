@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react';
 import {Box, Button, Divider, FormControl, InputLabel, MenuItem, Paper, Select, Typography} from '@mui/material';
 import FarmLandCard from '../../components/farmer/FarmLandCard.jsx';
 import TextField from "@mui/material/TextField";
+import {useNic} from "../../components/NicContext.jsx";
 
 const FarmerHome = () => {
-    const nic = '200021404098';
+    const { nic } = useNic(); // Get the nic value from context
 
     const [cropedFarmland, setcropedFarmland] = useState([]);
     const [uncropedFarmland, setuncropedFarmland] = useState([]);

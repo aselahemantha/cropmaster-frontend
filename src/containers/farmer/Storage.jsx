@@ -6,6 +6,7 @@ import {
     Container,
     Paper, MenuItem, Select,
 } from '@mui/material';
+import {useNic} from "../../components/NicContext.jsx";
 
 const AddStorageMethod = () => {
     const [storageData, setStorageData] = useState({
@@ -49,6 +50,8 @@ const AddStorageMethod = () => {
     const [farmlands, setFarmlands] = useState([]);
     const [selectedStorageMethod, setSelectedStorageMethod] = useState('');
     const [selectedFarmland, setSelectedFarmland] = useState('');
+    const { nic } = useNic(); // Get the nic value from context
+
 
     useEffect(() => {
         const fetchStorageMethods = async () => {
@@ -66,7 +69,7 @@ const AddStorageMethod = () => {
 
         const fetchFarmlands = async () => {
             try {
-                const response = await fetch('http://localhost:8080/farmland/getAll');
+                const response = await fetch(`http://localhost:8080/farmland/getAll/${nic}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch farmlands');
                 }
@@ -79,7 +82,7 @@ const AddStorageMethod = () => {
 
         fetchStorageMethods();
         fetchFarmlands();
-    }, []);
+    }, [nic]);
 
     const handleAssignStorage = async () => {
         try {
