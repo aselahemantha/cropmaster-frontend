@@ -11,7 +11,7 @@ import Storage from "../containers/farmer/Storage.jsx";
 
 // Owner UI
 import OwnerHome from '../containers/owner/OwnerHome.jsx';
-import AddFarmer from '../containers/owner/AddFarmer.jsx';
+import AddFarmer from '../containers/owner/FarmerDetails.jsx';
 import AddFarmland from '../containers/owner/AddFarmland.jsx';
 
 // Home
