@@ -15,6 +15,7 @@ import MuiAlert from '@mui/material/Alert';
 import backgroundImage from '../assets/background/background.jpg';
 import { Link, useNavigate } from 'react-router-dom';
 import {useNic} from "../components/NicContext.jsx";
+import { borderRadius } from '@mui/system';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -22,14 +23,27 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const Home = () => {
     const containerStyle = {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: '100vh',
+        backgroundRepeat: 'no-repeat',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
+        transition: 'transform 0.3s ease',
+        transform: 'scale(1)', // Initial scale
+        '&:hover': {
+            transform: 'scale(1.1)', // Enlarge the size on hover
+        },
+
+
+
     };
 
     const navigate = useNavigate();
@@ -40,6 +54,22 @@ const Home = () => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const { setNic } = useNic(); // Get the setNic function from context
+    const boxStyle = {
+        backgroundColor: 'rgba(1, 32, 93, 0.3)',
+        padding :'40px',
+        borderRadius:'10px',
+        color :'rgba(0, 0, 0,1)',
+        transition: 'transform 0.3s ease',
+        transform: 'scale(1)', // Initial scale
+        '&:hover': {
+            transform: 'scale(1.1)', // Enlarge the size on hover
+        },
+
+
+    };
+    const textFieldStyle = {
+        color: 'white',
+    };
 
     const handleSignIn = async () => {
         try {
@@ -85,13 +115,14 @@ const Home = () => {
             <Typography variant="h2" align="center" color="text.primary">
                 Welcome to Your Farm App
             </Typography>
-            <Box mt={4}>
+            <Box mt={4} style={boxStyle}>
                 <TextField
                     label="NIC"
                     fullWidth
                     margin="normal"
                     value={nicValue}
                     onChange={(e) => setNicValue(e.target.value)}
+                    style={textFieldStyle}
                 />
                 <TextField
                     label="Password"
@@ -99,6 +130,7 @@ const Home = () => {
                     margin="normal"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    style={textFieldStyle}
                 />
                 <FormControl component="fieldset">
                     <RadioGroup
@@ -113,22 +145,34 @@ const Home = () => {
                     </RadioGroup>
                 </FormControl>
                 <Box mt={2}>
-                    <Button variant="contained" color="primary" size="large" onClick={handleSignIn}>
+                    <Button variant="contained" color="primary" size="large" onClick={handleSignIn} style={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}}>
                         Sign In
                     </Button>
                 </Box>
             </Box>
-            <Link to={"/signupfarmer"}>
-                <Typography variant="h6" align="center" color="text.primary">
+            <Box mt={2}>
+                <Button variant="text" color="primary" onClick={() => navigate("/signupfarmer")} style={{
+                    borderRadius: '5px',
+                    padding: '8px 16px',
+                    color: '#FFFFFF',
+                    backgroundColor: 'rgba(1, 32, 93, 0.6)'
+                }}>
                     Sign Up as Farmer
-                </Typography>
-            </Link>
+                </Button>
+            </Box>
 
-            <Link to={"/signupowner"}>
-                <Typography variant="h6" align="center" color="text.primary">
+            <Box mt={2}>
+                <Button variant="text" color="primary" onClick={() => navigate("/signupowner")} style={{
+
+                    borderRadius: '5px',
+                    padding: '8px 16px',
+                    backgroundColor: 'rgba(1, 32, 93, 0.6)', // Replace with your custom color
+                    color: '#FFFFFF',
+
+                }}>
                     Sign Up as Owner
-                </Typography>
-            </Link>
+                </Button>
+            </Box>
 
             <Snackbar open={errorSnackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
                 <Alert onClose={handleSnackbarClose} severity="error">

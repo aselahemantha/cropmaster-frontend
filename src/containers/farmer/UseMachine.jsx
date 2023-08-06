@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import Box from "@mui/material/Box";
 import {useNic} from "../../components/NicContext.jsx";
+import backgroundImg from '../../assets/background/background1.jpg'
 
 const AddMachine = () => {
 
@@ -20,7 +21,7 @@ const AddMachine = () => {
 
     const [selectedMachinery, setSelectedMachinery] = useState('');
     const [selectedFarmland, setSelectedFarmland] = useState('');
-
+    const paperStyle = { padding: '50px 20px', width: '500', margin: '20px auto',backgroundColor: 'rgba(1, 32, 93, 0.2)' ,marginTop: '20px'};
     const [farmlandData, setFarmlandData] = useState([]);
     const [machineryData, setMachineryData] = useState([]);
 
@@ -132,8 +133,8 @@ const AddMachine = () => {
     };
 
     return (
-        <Container>
-            <Paper elevation={3} sx={{ p: 4, mt: 10 }}>
+        <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh' ,paddingTop: '20px',paddingBottom: '20px'}}>
+            <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Add Machine
                 </Typography>
@@ -143,6 +144,7 @@ const AddMachine = () => {
                     name="name"
                     value={machineData.name}
                     onChange={handleInputChange}
+                    sx={{ mb: 2 }}
                 />
                 <TextField
                     label="Cost"
@@ -150,6 +152,7 @@ const AddMachine = () => {
                     name="cost"
                     value={machineData.cost}
                     onChange={handleInputChange}
+                    sx={{ mb: 2 }}
                 />
                 <TextField
                     label="Type"
@@ -157,6 +160,7 @@ const AddMachine = () => {
                     name="type"
                     value={machineData.type}
                     onChange={handleInputChange}
+                    sx={{ mb: 2 }}
                 />
                 <TextField
                     label="Environmental Impact"
@@ -164,6 +168,7 @@ const AddMachine = () => {
                     name="environmentalImpact"
                     value={machineData.envir_impact}
                     onChange={handleInputChange}
+                    sx={{ mb: 2 }}
                 />
                 <TextField
                     label="Safety"
@@ -171,20 +176,21 @@ const AddMachine = () => {
                     name="safety"
                     value={machineData.safely}
                     onChange={handleInputChange}
+                    sx={{ mb: 2 }}
                 />
-                <Button variant="contained" onClick={handleAddMachine} fullWidth>
+                <Button variant="contained" onClick={handleAddMachine} fullWidth sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}}>
                     Add Machine
                 </Button>
             </Paper>
 
 
-            <Paper elevation={3} sx={{ p: 4, mt: 10 }}>
+            <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
                 <Box display="flex" justifyContent="center" alignItems="center" height={50}>
                     <h1>Add a Disease</h1>
                 </Box>
 
                 Select for Farmers
-                <FormControl fullWidth variant="outlined">
+                <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
                     <InputLabel>Farm Land</InputLabel>
                     <Select
                         value={selectedFarmland}
@@ -199,7 +205,7 @@ const AddMachine = () => {
                     </Select>
                 </FormControl>
 
-                <FormControl fullWidth variant="outlined">
+                <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
                     <InputLabel>Chemical</InputLabel>
                     <Select
                         value={selectedMachinery}
@@ -215,7 +221,7 @@ const AddMachine = () => {
                 </FormControl>
                 <br />
                 <Box display="flex" justifyContent="left" alignItems="center" height={50} margin="auto">
-                    <Button variant="contained" color="primary"  >
+                    <Button variant="contained" color="primary" sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}} >
                         SUBMIT
                     </Button>
                 </Box>

@@ -2,6 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {Container, Typography, TextField, Button, Box, MenuItem, Select} from '@mui/material';
 import {useNic} from "../../components/NicContext.jsx";
+import backgroundImg from '../../assets/background/background1.jpg'
 
 const AddFarmland = () => {
     const [name, setName] = useState('');
@@ -111,7 +112,7 @@ const AddFarmland = () => {
 
 
     return (
-        <Container>
+        <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh',marginTop: '20px',marginBottom: '20px', paddingTop: 2, paddingRight: 4, paddingBottom: 6, paddingLeft: 8 , margin: 4 }}>
             <Typography variant="h4" align="center" mt={5} mb={3}>
                 Add Farmland
             </Typography>

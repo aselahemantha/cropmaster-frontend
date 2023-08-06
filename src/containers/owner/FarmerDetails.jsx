@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
 import FarmerCard from "../../components/owner/FarmerCard.jsx";
+import backgroundImg from '../../assets/background/background1.jpg'
 
 const FarmerDetails = () => {
     const [farmers, setFarmers] = useState([]);
@@ -14,7 +15,7 @@ const FarmerDetails = () => {
     }, []);
 
     return (
-        <Box>
+        <Box style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh',marginTop: '20px',marginBottom: '20px', paddingTop: 2, paddingRight: 4, paddingBottom: 6, paddingLeft: 8 , margin: 4 }}>
             <Typography variant="h5">Farmers</Typography>
             <Divider />
             {farmers.map(farmer => (

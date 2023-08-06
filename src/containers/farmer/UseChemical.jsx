@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import Box from "@mui/material/Box";
 import {useNic} from "../../components/NicContext.jsx";
+import backgroundImg from '../../assets/background/background1.jpg'
 
 const AddChemical = () => {
   const [chemicalData, setChemicalData] = useState({
@@ -23,6 +24,8 @@ const AddChemical = () => {
     manufacturer: '',
     envir_impact: '',
   });
+
+  const paperStyle = { padding: '50px 20px', width: '500', margin: '20px auto',backgroundColor: 'rgba(1, 32, 93, 0.2)' ,};
 
   const [selectedChemical, setSelectedChemical] = useState('');
   const [selectedFarmland, setSelectedFarmland] = useState('');
@@ -132,8 +135,8 @@ const AddChemical = () => {
 
 
   return (
-      <Container>
-        <Paper elevation={3} sx={{ p: 4, mt: 10 }}>
+      <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh',paddingTop: '20px',paddingBottom: '20px' }}>
+        <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
           <Typography variant="h4" align="center" gutterBottom>
             Add Chemical
           </Typography>
@@ -142,52 +145,58 @@ const AddChemical = () => {
               fullWidth
               value={chemicalData.name}
               onChange={(e) => handleChange('name', e.target.value)}
+              sx={{ mb: 2 }}
           />
           <TextField
               label="Handling"
               fullWidth
               value={chemicalData.handling}
               onChange={(e) => handleChange('handling', e.target.value)}
+              sx={{ mb: 2 }}
           />
           <TextField
               label="Usage"
               fullWidth
               value={chemicalData.usage}
               onChange={(e) => handleChange('usage', e.target.value)}
+              sx={{ mb: 2 }}
           />
           <TextField
               label="Safety Precautions"
               fullWidth
               value={chemicalData.safety}
               onChange={(e) => handleChange('safety', e.target.value)}
+              sx={{ mb: 2 }}
           />
           <TextField
               label="Manufacture Details"
               fullWidth
               value={chemicalData.manufacturer}
               onChange={(e) => handleChange('manufacture', e.target.value)}
+              sx={{ mb: 2 }}
           />
           <TextField
               label="Environmental Impact"
               fullWidth
               value={chemicalData.envir_impact}
               onChange={(e) => handleChange('environmentalImpact', e.target.value)}
+              sx={{ mb: 2 }}
           />
           <Grid container justifyContent="flex-end" sx={{ mt: 4 }}>
-            <Button variant="contained" onClick={handleAddChemical}>
+            <Button variant="contained" onClick={handleAddChemical} sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}}>
               Add Chemical
             </Button>
           </Grid>
         </Paper>
 
 
-        <Paper elevation={3} sx={{ p: 4, mt: 10 }}>
+        <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
           <Box display="flex" justifyContent="center" alignItems="center" height={50}>
             <h1>Add a Disease</h1>
           </Box>
 
-           Select for Farmers
-          <FormControl fullWidth variant="outlined">
+          Select for Farmers
+          <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
             <InputLabel>Farm Land</InputLabel>
             <Select
                 value={selectedFarmland}
@@ -202,7 +211,7 @@ const AddChemical = () => {
             </Select>
           </FormControl>
 
-          <FormControl fullWidth variant="outlined">
+          <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
             <InputLabel>Chemical</InputLabel>
             <Select
                 value={selectedChemical}
@@ -218,7 +227,7 @@ const AddChemical = () => {
           </FormControl>
           <br />
           <Box display="flex" justifyContent="left" alignItems="center" height={50} margin="auto">
-            <Button variant="contained" color="primary" onClick={handleChemicalUsageSubmit}  >
+            <Button variant="contained" color="primary" onClick={handleChemicalUsageSubmit} sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}} >
               SUBMIT
             </Button>
           </Box>

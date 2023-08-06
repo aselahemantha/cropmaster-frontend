@@ -12,6 +12,7 @@ import {
   InputLabel,
 } from '@mui/material';
 import {useNic} from "../../components/NicContext.jsx";
+import backgroundImg from '../../assets/background/background1.jpg'
 
 const AddIrrigationMethod = () => {
   const [irrigationData, setIrrigationData] = useState({
@@ -22,7 +23,7 @@ const AddIrrigationMethod = () => {
   });
 
   const [farmers, setFarmers] = useState([]);
-
+  const paperStyle = { padding: '50px 20px', width: '500', margin: '20px auto',backgroundColor: 'rgba(1, 32, 93, 0.2)' ,};
   const [farmlands, setFarmlands] = useState([]);
   const [irrigationMethods, setIrrigationMethods] = useState([]);
   const [selectedFarmland, setSelectedFarmland] = useState('');
@@ -136,8 +137,8 @@ const AddIrrigationMethod = () => {
   };
 
   return (
-      <Container>
-        <Paper elevation={3} sx={{ p: 4, mt: 10 }}>
+      <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh',paddingTop: '20px',paddingBottom: '20px' }}>
+        <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
           <Typography variant="h4" align="center" gutterBottom>
             Add Irrigation Method
           </Typography>
@@ -147,6 +148,7 @@ const AddIrrigationMethod = () => {
               name="delivery"
               value={irrigationData.delivery}
               onChange={handleInputChange}
+              sx={{ mb: 2 }}
           />
           <TextField
               label="Source"
@@ -154,6 +156,7 @@ const AddIrrigationMethod = () => {
               name="source"
               value={irrigationData.source}
               onChange={handleInputChange}
+              sx={{ mb: 2 }}
           />
           <TextField
               label="Method"
@@ -161,8 +164,9 @@ const AddIrrigationMethod = () => {
               name="method"
               value={irrigationData.method}
               onChange={handleInputChange}
+              sx={{ mb: 2 }}
           />
-          <FormControl fullWidth>
+          <FormControl fullWidth sx={{ mb: 2 }}>
             <InputLabel>Maintainer NIC</InputLabel>
             <Select
                 value={irrigationData.maintainerNIC}
@@ -176,12 +180,12 @@ const AddIrrigationMethod = () => {
               ))}
             </Select>
           </FormControl>
-          <Button variant="contained" onClick={handleAddIrrigationMethod} fullWidth>
+          <Button variant="contained" onClick={handleAddIrrigationMethod} fullWidth sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}}>
             Add Irrigation Method
           </Button>
         </Paper>
 
-        <Paper elevation={3} sx={{ p: 4, mt: 10 }}>
+        <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
           <Typography variant="h4" align="center" gutterBottom>
             Assign Irrigation Method
           </Typography>
@@ -216,7 +220,8 @@ const AddIrrigationMethod = () => {
               variant="contained"
               onClick={handleAssignIrrigation}
               fullWidth
-              sx={{ mt: 3 }}
+              sx={{ mt: 3 ,backgroundColor: 'rgba(1, 32, 93, 0.6)' }}
+
           >
             Assign Irrigation to Farmland
           </Button>

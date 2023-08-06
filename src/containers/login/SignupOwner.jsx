@@ -9,9 +9,11 @@ import {
     Radio,
     FormControl,
     Snackbar,
+    Box,
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import MuiAlert from '@mui/material/Alert';
+import backgroundImg from '../../assets/background/background.jpg'
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -73,52 +75,60 @@ const SignupOwner = () => {
     };
 
     return (
-        <Container>
-            <Typography variant="h4" align="center" gutterBottom>
-                Sign Up
-            </Typography>
-            <TextField
-                label="NIC *"
-                fullWidth
-                margin="normal"
-                value={nic}
-                onChange={(e) => setNic(e.target.value)}
-            />
-            <TextField
-                label="Name *"
-                fullWidth
-                margin="normal"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-            <TextField
-                label="Mobile *"
-                fullWidth
-                margin="normal"
-                value={mobile}
-                onChange={(e) => setMobile(e.target.value)}
-            />
-            <TextField
-                label="Age *"
-                fullWidth
-                margin="normal"
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
-            />
-            <TextField
-                label="Password *"
-                type="password"
-                fullWidth
-                margin="normal"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <Button variant="contained" color="primary" onClick={handleSignUp}>
-                Sign Up
-            </Button>
-            <Typography variant="body2" align="center" mt={2}>
-                Already have an account? <Link to="/">Log in</Link>
-            </Typography>
+        <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh', paddingTop: '20px', paddingBottom: '20px' }}>
+            <Box
+                sx={{
+                    backgroundColor: 'rgba(1, 32, 93, 0.2)',// Background color for the form box
+                    padding: '20px',
+                    borderRadius: '8px',
+                }}
+            >
+                <Typography variant="h4" align="center" gutterBottom>
+                    Sign Up
+                </Typography>
+                <TextField
+                    label="NIC *"
+                    fullWidth
+                    margin="normal"
+                    value={nic}
+                    onChange={(e) => setNic(e.target.value)}
+                />
+                <TextField
+                    label="Name *"
+                    fullWidth
+                    margin="normal"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <TextField
+                    label="Mobile *"
+                    fullWidth
+                    margin="normal"
+                    value={mobile}
+                    onChange={(e) => setMobile(e.target.value)}
+                />
+                <TextField
+                    label="Age *"
+                    fullWidth
+                    margin="normal"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                />
+                <TextField
+                    label="Password *"
+                    type="password"
+                    fullWidth
+                    margin="normal"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <Button variant="contained" color="primary" onClick={handleSignUp}>
+                    Sign Up
+                </Button>
+                <Typography variant="body2" align="center" mt={2}>
+                    Already have an account? <Link to="/">Log in</Link>
+                </Typography>
+            </Box>
             <Snackbar open={errorSnackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
                 <Alert onClose={handleSnackbarClose} severity="error">
                     {errorMessage}

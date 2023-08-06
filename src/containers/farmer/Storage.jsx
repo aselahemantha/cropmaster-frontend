@@ -7,6 +7,7 @@ import {
     Paper, MenuItem, Select,
 } from '@mui/material';
 import {useNic} from "../../components/NicContext.jsx";
+import backgroundImg from '../../assets/background/background1.jpg'
 
 const AddStorageMethod = () => {
     const [storageData, setStorageData] = useState({
@@ -46,6 +47,7 @@ const AddStorageMethod = () => {
         }
     };
 
+    const paperStyle = { padding: '50px 20px', width: '500', margin: '20px auto',backgroundColor: 'rgba(1, 32, 93, 0.2)' ,};
     const [storageMethods, setStorageMethods] = useState([]);
     const [farmlands, setFarmlands] = useState([]);
     const [selectedStorageMethod, setSelectedStorageMethod] = useState('');
@@ -106,8 +108,8 @@ const AddStorageMethod = () => {
     };
 
     return (
-        <Container>
-            <Paper elevation={3} sx={{ p: 4, mt: 10 }}>
+        <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh' ,paddingTop: '20px',paddingBottom: '20px'}}>
+            <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Add Storage Method
                 </Typography>
@@ -155,13 +157,13 @@ const AddStorageMethod = () => {
                     variant="contained"
                     onClick={handleSubmit}
                     fullWidth
-                    sx={{ mt: 3 }}
+                    sx={{ mt: 3 ,backgroundColor: 'rgba(1, 32, 93, 0.6)'}}
                 >
                     Add Storage Method
                 </Button>
             </Paper>
 
-            <Paper elevation={3} sx={{ p: 4, mt: 10 }}>
+            <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Assign Storage to Farmland
                 </Typography>
@@ -195,7 +197,8 @@ const AddStorageMethod = () => {
                     variant="contained"
                     onClick={handleAssignStorage}
                     fullWidth
-                    sx={{ mt: 3 }}
+                    sx={{ mt: 3 ,backgroundColor: 'rgba(1, 32, 93, 0.6)'}}
+
                 >
                     Assign Storage to Farmland
                 </Button>

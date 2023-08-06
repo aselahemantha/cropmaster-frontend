@@ -1,6 +1,6 @@
 import { Avatar, Box, Typography, useTheme } from "@mui/material";
 import { Menu, MenuItem, Sidebar, useProSidebar } from "react-pro-sidebar";
-import { Link, useNavigate } from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'; import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined'; import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'; import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined'; import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import CoronavirusIcon from '@mui/icons-material/Coronavirus';
 import ScienceIcon from '@mui/icons-material/Science';
@@ -8,10 +8,38 @@ import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturi
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import AgricultureIcon from '@mui/icons-material/Agriculture';
 import WarehouseIcon from '@mui/icons-material/Warehouse';
+import {useNic} from "../NicContext.jsx";
+import {useEffect, useState} from "react";
 
 function SideNav() {
+    const { nic } = useNic();
     const { collapsed } = useProSidebar();
     const theme = useTheme();
+    const location = useLocation();
+
+    const isMenuItemActive = (path) => {
+        return location.pathname === path;
+    };
+
+
+    const [farmer, setFarmer] = useState(''); // State to hold the farmer's name
+
+    useEffect(() => {
+        const fetchFarmerName = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/farmer/${nic}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch farmer name');
+                }
+                const data = await response.json();
+                setFarmer(data);
+            } catch (error) {
+                console.error('Error fetching farmer name:', error);
+            }
+        };
+
+        fetchFarmerName();
+    }, [nic]);
 
     return <Sidebar
         style={{ height: "100%", top: 'auto' }}
@@ -21,8 +49,8 @@ function SideNav() {
     >
         <Box sx={styles.avatarContainer}>
             <Avatar sx={styles.avatar} alt="Masoud" src="src/assets/avatars/login.jpg" />
-            {!collapsed ? <Typography variant="body2" sx={styles.yourChannel}>Farmer</Typography> : null}
-            {!collapsed ? <Typography variant="overline"> -- Farmer Name -- </Typography> : null}
+            {!collapsed ? <Typography variant="body2" sx={styles.yourChannel}>Welcome Farmer</Typography> : null}
+            {!collapsed ? <Typography variant="overline"> {farmer.name} </Typography> : null}
         </Box>
 
         <Menu
@@ -42,7 +70,7 @@ function SideNav() {
             <MenuItem active={window.location.pathname === "/storage"} component={<Link to="/storage" />} icon={<WarehouseIcon />}> <Typography variant="body2">Storage </Typography></MenuItem >
 
         </Menu >
-    </Sidebar >; 
+    </Sidebar >;
 }
 
 export default SideNav;

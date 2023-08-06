@@ -4,6 +4,8 @@ import {Box, Button, Divider, FormControl, InputLabel, MenuItem, Paper, Select, 
 import FarmLandCard from '../../components/farmer/FarmLandCard.jsx';
 import TextField from "@mui/material/TextField";
 import {useNic} from "../../components/NicContext.jsx";
+import backgroundImg from '../../assets/background/background1.jpg'
+import { Padding } from '@mui/icons-material';
 
 const FarmerHome = () => {
     const { nic } = useNic(); // Get the nic value from context
@@ -128,36 +130,49 @@ const FarmerHome = () => {
     };
 
     return (
-        <Box>
-            <Typography sx={styles.pageTitle} variant="h5">
-                Welcome again! Mr. - {nic} -
-            </Typography>
-            <Divider sx={styles.divider} />
+        <Box style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh',marginTop: '20px',marginBottom: '20px', paddingTop: 2, paddingRight: 4, paddingBottom: 6, paddingLeft: 8 , margin: 4 }}>
+            <Box sx={{
+                backgroundColor: 'rgba(1, 32, 93, 0.2)', // Background color for the form box
+                padding: '20px',
+                borderRadius: '8px',
+                marginTop:'20px',
+                marginBottom:'20px',
+                marginLeft:'20px',
+                marginRight:'20px',
+            }}>
+                <Typography sx={styles.pageTitle} variant="h5">
+                    Welcome again! Mr. - {nic} -
+                </Typography>
+                <Divider sx={styles.divider} />
 
-            <Typography sx={styles.pageTitle} variant="h5">
-                Farmlands that has cropped
-            </Typography>
+                <Typography sx={styles.pageTitle} variant="h5">
+                    Farmlands that has cropped
+                </Typography>
 
-            <Box sx={styles.columnsContainer}>
-                {cropedFarmland.map((farmland) => (
-                    <FarmLandCard
-                        key={farmland.farmlandID}
-                        sx={styles.item}
-                        farmlandID={farmland.farmlandID}
-                        name={farmland.name}
-                        size={farmland.size}
-                        location={farmland.location}
-                        experience={farmland.experience}
-                        isCropped={true} // Indicate that this is a cropped farmland
-                    />
-                ))}
+
+
+                <Box sx={styles.columnsContainer}>
+                    {cropedFarmland.map((farmland) => (
+                        <FarmLandCard
+                            key={farmland.farmlandID}
+                            sx={styles.item}
+                            farmlandID={farmland.farmlandID}
+                            name={farmland.name}
+                            size={farmland.size}
+                            location={farmland.location}
+                            experience={farmland.experience}
+                            isCropped={true} // Indicate that this is a cropped farmland
+                        />
+                    ))}
+                </Box>
+
+                <Divider sx={styles.divider} />
+
+                <Typography sx={styles.pageTitle} variant="h5">
+                    Farmlands that has uncropped
+                </Typography>
+
             </Box>
-
-            <Divider sx={styles.divider} />
-
-            <Typography sx={styles.pageTitle} variant="h5">
-                Farmlands that has uncropped
-            </Typography>
 
             <Box sx={styles.columnsContainer}>
                 {uncropedFarmland.map((farmland) => (
@@ -174,78 +189,107 @@ const FarmerHome = () => {
                 ))}
             </Box>
 
+            <Box sx={{
+                backgroundColor: 'rgba(1, 32, 93, 0.2)', // Background color for the form box
+                padding: '20px',
+                borderRadius: '8px',
+                marginTop:'20px',
+                marginBottom:'20px',
+                marginLeft:'20px',
+                marginRight:'20px',
+            }}>
+                <Box display="flex" justifyContent="center" alignItems="center" height={50}>
+                    <h1>Add a Crop</h1>
+                </Box>
 
-            <Box display="flex" justifyContent="center" alignItems="center" height={50}>
-                <h1>Add a Crop</h1>
+                <h3>Enter details here!</h3>
+                <TextField
+                    id="outlined-basic"
+                    label="Name"
+                    variant="outlined"
+                    fullWidth={true}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    sx={{
+                        marginTop:'10px',
+                        marginBottom:'10px',
+                    }}
+                />
+
+                <TextField
+                    id="outlined-basic"
+                    label="Variety"
+                    variant="outlined"
+                    fullWidth={true}
+                    value={variety}
+                    onChange={(e) => setVariety(e.target.value)}
+                    sx={{
+                        marginTop:'10px',
+                        marginBottom:'10px',
+                    }}
+                />
+
+                <Box display="flex" justifyContent="left" alignItems="center" height={50} margin="auto">
+                    <Button variant="contained" color="primary" onClick={handleSubmit}  sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}}>
+                        SUBMIT
+                    </Button>
+                </Box>
+
             </Box>
 
-            <h3>Enter details here!</h3>
-            <TextField
-                id="outlined-basic"
-                label="Name"
-                variant="outlined"
-                fullWidth={true}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
+            <Box sx={{
+                backgroundColor: 'rgba(1, 32, 93, 0.2)', // Background color for the form box
+                padding: '20px',
+                borderRadius: '8px',
+                marginTop:'20px',
+                marginBottom:'20px',
+                marginLeft:'20px',
+                marginRight:'20px',
+            }} >
+                <Typography sx={styles.pageTitle} variant="h5">
+                    Assign Crops to Uncropped Farmlands
+                </Typography>
+                <Box sx={styles.columnsContainer}>
+                    <FormControl sx={styles.item} fullWidth variant="outlined">
+                        <InputLabel>Farmland</InputLabel>
+                        <Select
+                            value={selectedFarmland}
+                            onChange={(e) => setSelectedFarmland(e.target.value)}
+                            label="Farmland"
+                        >
+                            {uncropedFarmland.map((farmland) => (
+                                <MenuItem key={farmland.farmlandID} value={farmland.farmlandID}>
+                                    {farmland.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
 
-            <TextField
-                id="outlined-basic"
-                label="Variety"
-                variant="outlined"
-                fullWidth={true}
-                value={variety}
-                onChange={(e) => setVariety(e.target.value)}
-            />
+                    <FormControl sx={styles.item} fullWidth variant="outlined">
+                        <InputLabel>Crop</InputLabel>
+                        <Select
+                            value={selectedCrop}
+                            onChange={(e) => setSelectedCrop(e.target.value)}
+                            label="Crop"
+                        >
+                            {crops.map((crop) => (
+                                <MenuItem key={crop.cropId} value={crop.cropId}>
+                                    {crop.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
 
-            <Box display="flex" justifyContent="left" alignItems="center" height={50} margin="auto">
-                <Button variant="contained" color="primary" onClick={handleSubmit}>
-                    SUBMIT
-                </Button>
-            </Box>
-
-            <Typography sx={styles.pageTitle} variant="h5">
-                Assign Crops to Uncropped Farmlands
-            </Typography>
-            <Box sx={styles.columnsContainer}>
-                <FormControl sx={styles.item} fullWidth variant="outlined">
-                    <InputLabel>Farmland</InputLabel>
-                    <Select
-                        value={selectedFarmland}
-                        onChange={(e) => setSelectedFarmland(e.target.value)}
-                        label="Farmland"
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleAssignCrop}
+                        sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)' }}
                     >
-                        {uncropedFarmland.map((farmland) => (
-                            <MenuItem key={farmland.farmlandID} value={farmland.farmlandID}>
-                                {farmland.name}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+                        Assign Crop
+                    </Button>
 
-                <FormControl sx={styles.item} fullWidth variant="outlined">
-                    <InputLabel>Crop</InputLabel>
-                    <Select
-                        value={selectedCrop}
-                        onChange={(e) => setSelectedCrop(e.target.value)}
-                        label="Crop"
-                    >
-                        {crops.map((crop) => (
-                            <MenuItem key={crop.cropId} value={crop.cropId}>
-                                {crop.name}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleAssignCrop}
-                >
-                    Assign Crop
-                </Button>
-
+                </Box>
             </Box>
 
         </Box>
@@ -341,4 +385,3 @@ const styles = {
         mt: 1
     }
 }
-

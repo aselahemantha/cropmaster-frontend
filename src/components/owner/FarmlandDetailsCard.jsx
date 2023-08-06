@@ -41,32 +41,32 @@ const FarmlandDetailsCard = ({ farmlands }) => {
     };
 
     return (
-        <div>
-            <Typography variant="h5">Farmland Details</Typography>
+        <div style={{ padding: '20px' }}>
+            <Typography variant="h5" style={{ textAlign: 'center', marginBottom: '10px' }}>
+                Farmland Details
+            </Typography>
             <Divider />
-            {farmlands.map((farmland) => (
-                <div key={farmland.farmlandID}>
-                    <Typography variant="h6">{farmland.name}</Typography>
-                    <Typography>Size: {farmland.size}</Typography>
-                    <Typography>Location: {farmland.location}</Typography>
-                    <Button variant="outlined" onClick={() => setSelectedFarmland(farmland)}>
-                        View Details
-                    </Button>
-                </div>
-            ))}
-
             {selectedFarmland && (
-                <div>
+                <div style={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc', backgroundColor: '#f7f7f7', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Typography variant="h6">Selected Farmland: {selectedFarmland.name}</Typography>
-                    <Button variant="outlined" onClick={handleOpenWeatherDialog}>
+                    <Button variant="outlined" style={{ marginLeft: '10px' }} onClick={handleOpenWeatherDialog}>
                         View Weather Data
                     </Button>
-                    <Button variant="outlined" onClick={handleOpenSoilDialog}>
+                    <Button variant="outlined" style={{ marginLeft: '10px' }} onClick={handleOpenSoilDialog}>
                         View Soil Data
                     </Button>
                 </div>
             )}
-
+            {farmlands.map((farmland) => (
+                <div style={{ marginTop: '15px', padding: '10px', border: '1px solid #ccc', backgroundColor: '#f7f7f7' }} key={farmland.farmlandID}>
+                    <Typography variant="h6">{farmland.name}</Typography>
+                    <Typography>Size: {farmland.size}</Typography>
+                    <Typography>Location: {farmland.location}</Typography>
+                    <Button variant="outlined" style={{ marginLeft: '10px' }} onClick={() => setSelectedFarmland(farmland)}>
+                        View Details
+                    </Button>
+                </div>
+            ))}
             <Dialog open={openWeatherDialog} onClose={handleCloseWeatherDialog}>
                 <DialogTitle>Weather Data for {selectedFarmland?.name}</DialogTitle>
                 <DialogContent>

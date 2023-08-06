@@ -4,12 +4,13 @@ import TextField from '@mui/material/TextField';
 import { Container, Paper, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { useState, useEffect } from 'react';
 import {useNic} from "../../components/NicContext.jsx";
+import backgroundImg from '../../assets/background/background1.jpg'
 
 export default function ReportDisease() {
 
     const { nic } = useNic(); // Get the nic value from context
 
-    const paperStyle = { padding: '50px 20px', width: '500', margin: '20px auto' };
+    const paperStyle = { padding: '50px 20px', width: '500', margin: '20px auto',backgroundColor: 'rgba(1, 32, 93, 0.2)' ,marginTop: '20px'};
     const [name, setName] = useState('');
     const [type, setType] = useState('');
     const [transmission, setTransmission] = useState('');
@@ -130,20 +131,12 @@ export default function ReportDisease() {
     };
 
     return (
-        <Container>
-            Nic: {nic}
-            <Paper elevation={3} style={paperStyle}>
+        <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh' ,paddingTop: '20px',paddingBottom: '20px'}}>
+            <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
                 <Box display="flex" justifyContent="center" alignItems="center" height={50}>
                     <h1>Add a Disease</h1>
                 </Box>
-                <Box
-                    component="form"
-                    sx={{
-                        '& > :not(style)': { m: 1, width: '25ch' },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                >
+
                     <h3>Enter details here!</h3>
                     <TextField
                         id="outlined-basic"
@@ -152,6 +145,7 @@ export default function ReportDisease() {
                         fullWidth={true}
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        sx={{ mt: 2 }}
                     />
                     <TextField
                         id="outlined-basic"
@@ -160,6 +154,7 @@ export default function ReportDisease() {
                         fullWidth={true}
                         value={type}
                         onChange={(e) => setType(e.target.value)}
+                        sx={{ mt: 2 }}
                     />
                     <TextField
                         id="outlined-basic"
@@ -168,6 +163,7 @@ export default function ReportDisease() {
                         fullWidth={true}
                         value={transmission}
                         onChange={(e) => setTransmission(e.target.value)}
+                        sx={{ mt: 2 }}
                     />
                     <TextField
                         id="outlined-basic"
@@ -176,14 +172,16 @@ export default function ReportDisease() {
                         fullWidth={true}
                         value={symptom}
                         onChange={(e) => setSymptom(e.target.value)}
+                        sx={{ mt: 2 }}
                     />
                     <br />
                     <Box display="flex" justifyContent="left" alignItems="center" height={50} margin="auto">
-                        <Button variant="contained" color="primary" onClick={handleSubmit}>
+                        <Button variant="contained" color="primary" fullWidth
+                                sx={{ mt: 3 ,backgroundColor: 'rgba(1, 32, 93, 0.6)'}} onClick={handleSubmit}>
                             SUBMIT
                         </Button>
                     </Box>
-                </Box>
+
             </Paper>
 
             <Paper elevation={3} style={paperStyle}>
@@ -192,7 +190,7 @@ export default function ReportDisease() {
                 </Box>
 
                 {/* Select for Farmers */}
-                <FormControl fullWidth variant="outlined">
+                <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
                     <InputLabel>Farm Land</InputLabel>
                     <Select
                         value={selectedFarmland}
@@ -207,7 +205,7 @@ export default function ReportDisease() {
                     </Select>
                 </FormControl>
 
-                <FormControl fullWidth variant="outlined">
+                <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
                     <InputLabel>Disease</InputLabel>
                     <Select
                         value={selectedDisease}
@@ -226,7 +224,8 @@ export default function ReportDisease() {
 
                 <br />
                 <Box display="flex" justifyContent="left" alignItems="center" height={50} margin="auto">
-                    <Button variant="contained" color="primary" onClick={handleDiseaseSubmit}>
+                    <Button variant="contained" color="primary" fullWidth
+                            sx={{ mt: 3 ,backgroundColor: 'rgba(1, 32, 93, 0.6)'}} onClick={handleDiseaseSubmit} sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}}>
                         SUBMIT
                     </Button>
                 </Box>
