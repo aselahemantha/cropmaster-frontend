@@ -8,6 +8,9 @@ const FarmlandDetailsCard = ({ farmlands }) => {
     const [openWeatherDialog, setOpenWeatherDialog] = useState(false);
     const [openSoilDialog, setOpenSoilDialog] = useState(false);
 
+    const card2Style = { marginTop: '20px', padding: '10px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '500',backgroundColor: 'rgba(1, 32, 93, 0.2)'};
+    const cardStyle = {  width: '500',backgroundColor: 'rgba(1, 32, 93, 0.2)' ,};
+
     useEffect(() => {
         // Fetch weather data
         if (selectedFarmland) {
@@ -41,13 +44,13 @@ const FarmlandDetailsCard = ({ farmlands }) => {
     };
 
     return (
-        <div style={{ padding: '20px' }}>
+        <div  style={{ padding: '20px' }}>
             <Typography variant="h5" style={{ textAlign: 'center', marginBottom: '10px' }}>
                 Farmland Details
             </Typography>
             <Divider />
             {selectedFarmland && (
-                <div style={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc', backgroundColor: '#f7f7f7', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={card2Style}>
                     <Typography variant="h6">Selected Farmland: {selectedFarmland.name}</Typography>
                     <Button variant="outlined" style={{ marginLeft: '10px' }} onClick={handleOpenWeatherDialog}>
                         View Weather Data
@@ -58,7 +61,7 @@ const FarmlandDetailsCard = ({ farmlands }) => {
                 </div>
             )}
             {farmlands.map((farmland) => (
-                <div style={{ marginTop: '15px', padding: '10px', border: '1px solid #ccc', backgroundColor: '#f7f7f7' }} key={farmland.farmlandID}>
+                <div style={{width: '500',backgroundColor: 'rgba(1, 32, 93, 0.2)', marginTop: '15px', padding: '10px', border: '1px solid #ccc' }} key={farmland.farmlandID}>
                     <Typography variant="h6">{farmland.name}</Typography>
                     <Typography>Size: {farmland.size}</Typography>
                     <Typography>Location: {farmland.location}</Typography>
@@ -68,8 +71,8 @@ const FarmlandDetailsCard = ({ farmlands }) => {
                 </div>
             ))}
             <Dialog open={openWeatherDialog} onClose={handleCloseWeatherDialog}>
-                <DialogTitle>Weather Data for {selectedFarmland?.name}</DialogTitle>
-                <DialogContent>
+                <DialogTitle style={cardStyle}>Weather Data for {selectedFarmland?.name}</DialogTitle>
+                <DialogContent style={cardStyle}>
                     {weatherData ? (
                         <List>
                             <ListItem>
@@ -92,7 +95,7 @@ const FarmlandDetailsCard = ({ farmlands }) => {
                         <Typography>No weather data available.</Typography>
                     )}
                 </DialogContent>
-                <DialogActions>
+                <DialogActions style={cardStyle}>
                     <Button onClick={handleCloseWeatherDialog} color="primary">
                         Close
                     </Button>
@@ -101,8 +104,8 @@ const FarmlandDetailsCard = ({ farmlands }) => {
 
             {/* Soil Data Dialog */}
             <Dialog open={openSoilDialog} onClose={handleCloseSoilDialog}>
-                <DialogTitle>Soil Data for {selectedFarmland?.name}</DialogTitle>
-                <DialogContent>
+                <DialogTitle style={cardStyle}>Soil Data for {selectedFarmland?.name}</DialogTitle>
+                <DialogContent style={cardStyle}>
                     {soilData ? (
                         <List>
                             <ListItem>
@@ -125,7 +128,7 @@ const FarmlandDetailsCard = ({ farmlands }) => {
                         <Typography>No soil data available.</Typography>
                     )}
                 </DialogContent>
-                <DialogActions>
+                <DialogActions style={cardStyle}>
                     <Button onClick={handleCloseSoilDialog} color="primary">
                         Close
                     </Button>

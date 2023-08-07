@@ -16,8 +16,9 @@ const FarmerDetails = () => {
 
     return (
         <Box style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh',marginTop: '20px',marginBottom: '20px', paddingTop: 2, paddingRight: 4, paddingBottom: 6, paddingLeft: 8 , margin: 4 }}>
-            <Typography variant="h5">Farmers</Typography>
+            <Typography variant="h5">All Farmers Details</Typography>
             <Divider />
+            <br/>
             {farmers.map(farmer => (
                 <FarmerCard key={farmer.farmerID} farmer={farmer} />
             ))}

@@ -45,6 +45,10 @@ function FarmLandCard({
             });
     };
 
+
+    const cardStyle = { padding: '50px 20px', width: '500', margin: '0px auto',backgroundColor: 'rgba(1, 32, 93, 0.4)' ,};
+    const card2Style = {  width: '500',backgroundColor: 'rgba(1, 32, 93, 0.2)' ,};
+
     const handleViewWeatherClick = () => {
         fetch(`http://localhost:8080/weather/getDetails/${farmlandID}`)
             .then((response) => response.json())
@@ -62,8 +66,8 @@ function FarmLandCard({
     };
 
     const cardContent = (
-        <React.Fragment>
-            <CardContent>
+        <React.Fragment >
+            <CardContent style={cardStyle}>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                     Farmland ID: {farmlandID}
                 </Typography>
@@ -75,7 +79,7 @@ function FarmLandCard({
                 </Typography>
                 <Typography variant="body2">Location: {location}</Typography>
             </CardContent>
-            <CardActions>
+            <CardActions >
                 {isCropped ? (
                     <Button size="small" color="primary" onClick={handleViewPlantClick}>
                         View Plant
@@ -95,10 +99,10 @@ function FarmLandCard({
     );
 
     return (
-        <Box sx={{ minWidth: 275 }}>
-            <Card variant="outlined">{cardContent}</Card>
-            <Dialog open={openDialog} onClose={handleCloseDialog}>
-                <DialogContent>
+        <Box sx={{ minWidth: 275 }} >
+            <Card  variant="outlined" style={card2Style}>{cardContent}</Card>
+            <Dialog open={openDialog} onClose={handleCloseDialog} >
+                <DialogContent style={cardStyle}>
                     {plantDetails && (
                         <Typography variant="body2">
                             <h3><b>Plant Details:</b></h3>
