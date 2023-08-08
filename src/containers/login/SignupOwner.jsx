@@ -62,7 +62,6 @@ const SignupOwner = () => {
                 setErrorMessage(data.error);
                 setErrorSnackbarOpen(true);
             }
-            navigate(`/`);
         } catch (error) {
             console.error('Error during signup:', error);
             // Handle error (e.g., network issue)

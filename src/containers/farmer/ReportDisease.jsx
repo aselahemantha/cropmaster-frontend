@@ -225,7 +225,7 @@ export default function ReportDisease() {
                 <br />
                 <Box display="flex" justifyContent="left" alignItems="center" height={50} margin="auto">
                     <Button variant="contained" color="primary" fullWidth
-                            sx={{ mt: 3 ,backgroundColor: 'rgba(1, 32, 93, 0.6)'}} onClick={handleDiseaseSubmit} sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}}>
+                            onClick={handleDiseaseSubmit} style={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}}>
                         SUBMIT
                     </Button>
                 </Box>

@@ -31,7 +31,7 @@ theme = createTheme(theme, {
                 fontSize: '0.9rem',
             },
             fontWeight: 500,
-            color: theme.palette.primary.normal,
+            color: theme.palette.primary,
             display: 'block',
             cursor: 'pointer'
         },

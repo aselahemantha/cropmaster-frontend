@@ -45,7 +45,7 @@ const SignupFarmer = () => {
                     password: password,
                     name: name,
                     age: parseInt(age),
-                    experience: experience,
+                    experince: experience,
                     mobile: mobile,
                 }),
             });

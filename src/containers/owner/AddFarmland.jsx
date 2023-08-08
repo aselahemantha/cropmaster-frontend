@@ -44,7 +44,6 @@ const AddFarmland = () => {
             name: name,
             size: size,
             location: location,
-            nic: nic // Assuming you want to associate the farmland with the logged-in user's NIC
         };
 
         fetch('http://localhost:8080/farmland/addNew', {
@@ -219,8 +218,8 @@ const AddFarmland = () => {
                         </MenuItem>
                     ))}
                 </Select>
-                <Button variant="contained" color="primary" onClick={handleAssignFarmer}>
-                    Assign Farmer to Farmland
+                <Button variant="contained" color="primary" onClick={handleUpdateAssignFarmer}>
+                    Change Assign Farmer to Farmland
                 </Button>
             </Box>
 
