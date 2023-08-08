@@ -4,7 +4,7 @@ import {
     TextField,
     Button,
     Container,
-    Paper, MenuItem, Select,
+    Paper, MenuItem, Select, InputLabel, FormControl,
 } from '@mui/material';
 import {useNic} from "../../components/NicContext.jsx";
 import backgroundImg from '../../assets/background/background1.jpg'
@@ -110,8 +110,8 @@ const AddStorageMethod = () => {
     return (
         <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh' ,paddingTop: '20px',paddingBottom: '20px'}}>
             <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Add Storage Method
+                <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
+                    ADD A NEW STORAGE METHOD TO THE DATABASE
                 </Typography>
                 <TextField
                     label="Name"
@@ -164,35 +164,41 @@ const AddStorageMethod = () => {
             </Paper>
 
             <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Assign Storage to Farmland
+                <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
+                    ASSIGN STORAGE TO A FARMLAND
                 </Typography>
-                <Select
-                    value={selectedStorageMethod}
-                    onChange={(e) => setSelectedStorageMethod(e.target.value)}
-                    fullWidth
-                    label="Select Storage Method"
-                    sx={{ mt: 2 }}
-                >
-                    {storageMethods.map((method) => (
-                        <MenuItem key={method.storageID} value={method.storageID}>
-                            {method.name}
-                        </MenuItem>
-                    ))}
-                </Select>
-                <Select
-                    value={selectedFarmland}
-                    onChange={(e) => setSelectedFarmland(e.target.value)}
-                    fullWidth
-                    label="Select Farmland"
-                    sx={{ mt: 2 }}
-                >
-                    {farmlands.map((farmland) => (
-                        <MenuItem key={farmland.farmlandID} value={farmland.farmlandID}>
-                            {farmland.name}
-                        </MenuItem>
-                    ))}
-                </Select>
+                <FormControl fullWidth sx={{ mt: 2 }}>
+                    <InputLabel>Select the Farmland</InputLabel>
+                    <Select
+                        value={selectedFarmland}
+                        onChange={(e) => setSelectedFarmland(e.target.value)}
+                        fullWidth
+                        label="Select Farmland"
+                        sx={{ mt: 2 }}
+                    >
+                        {farmlands.map((farmland) => (
+                            <MenuItem key={farmland.farmlandID} value={farmland.farmlandID}>
+                                {farmland.name}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <FormControl fullWidth sx={{ mt: 2 }}>
+                    <InputLabel>Select the Storage Method</InputLabel>
+                    <Select
+                        value={selectedStorageMethod}
+                        onChange={(e) => setSelectedStorageMethod(e.target.value)}
+                        fullWidth
+                        label="Select Storage Method"
+                        sx={{ mt: 2 }}
+                    >
+                        {storageMethods.map((method) => (
+                            <MenuItem key={method.storageID} value={method.storageID}>
+                                {method.name}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
                 <Button
                     variant="contained"
                     onClick={handleAssignStorage}

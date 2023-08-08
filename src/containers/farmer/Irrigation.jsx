@@ -120,7 +120,7 @@ const AddIrrigationMethod = () => {
       const response = await fetch(
           `http://localhost:8080/farmland/updateIrrigation/${selectedFarmland}/${selectedIrrigation}`,
           {
-            method: 'POST',
+            method: 'PUT',
           }
       );
 
@@ -139,9 +139,10 @@ const AddIrrigationMethod = () => {
   return (
       <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh',paddingTop: '20px',paddingBottom: '20px' }}>
         <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
-          <Typography variant="h4" align="center" gutterBottom>
-            Add Irrigation Method
+          <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
+            ADD A NEW IRRIGATION METHOD TO THE DATABASE
           </Typography>
+
           <TextField
               label="Delivery"
               fullWidth
@@ -181,17 +182,17 @@ const AddIrrigationMethod = () => {
             </Select>
           </FormControl>
           <Button variant="contained" onClick={handleAddIrrigationMethod} fullWidth sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}}>
-            Add Irrigation Method
+            ADD METHOD
           </Button>
         </Paper>
 
         <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
-          <Typography variant="h4" align="center" gutterBottom>
-            Assign Irrigation Method
+          <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
+            ASSIGN IRRIGATION METHOD TO A FARMLAND
           </Typography>
           {/* Other input fields and dropdowns (similar to previous code) */}
           <FormControl fullWidth sx={{ mt: 2 }}>
-            <InputLabel>Select Farmland</InputLabel>
+            <InputLabel>Select the Farmland</InputLabel>
             <Select
                 value={selectedFarmland}
                 onChange={(e) => setSelectedFarmland(e.target.value)}
@@ -204,7 +205,7 @@ const AddIrrigationMethod = () => {
             </Select>
           </FormControl>
           <FormControl fullWidth sx={{ mt: 2 }}>
-            <InputLabel>Select Irrigation Method</InputLabel>
+            <InputLabel>Select the Irrigation Method</InputLabel>
             <Select
                 value={selectedIrrigation}
                 onChange={(e) => setSelectedIrrigation(e.target.value)}

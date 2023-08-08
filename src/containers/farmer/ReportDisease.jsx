@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Container, Paper, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import {Container, Paper, Button, Select, MenuItem, FormControl, InputLabel, Typography, Divider} from '@mui/material';
 import { useState, useEffect } from 'react';
 import {useNic} from "../../components/NicContext.jsx";
 import backgroundImg from '../../assets/background/background1.jpg'
@@ -102,6 +102,8 @@ export default function ReportDisease() {
             farmlandID: selectedFarmland,
             diseaseID: selectedDisease,
             nic: nic,
+            diseaseName: diseaseData.find((disease) => disease.diseaseID === selectedDisease)?.name,
+            date: new Date().toISOString(),
         };
 
         // Make the POST request using fetch
@@ -122,6 +124,7 @@ export default function ReportDisease() {
                 // Handle the response from the backend if needed
                 console.log('Form submitted successfully:', responseData);
                 // Add any logic you need here after the form is successfully submitted
+                window.location.reload();
             })
             .catch((error) => {
                 // Handle errors
@@ -134,10 +137,10 @@ export default function ReportDisease() {
         <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh' ,paddingTop: '20px',paddingBottom: '20px'}}>
             <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
                 <Box display="flex" justifyContent="center" alignItems="center" height={50}>
-                    <h1>Add a Disease</h1>
+                    <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
+                        ADD A NEW DISEASE TO THE DATABASE
+                    </Typography>
                 </Box>
-
-                    <h3>Enter details here!</h3>
                     <TextField
                         id="outlined-basic"
                         label="Name"
@@ -178,20 +181,22 @@ export default function ReportDisease() {
                     <Box display="flex" justifyContent="left" alignItems="center" height={50} margin="auto">
                         <Button variant="contained" color="primary" fullWidth
                                 sx={{ mt: 3 ,backgroundColor: 'rgba(1, 32, 93, 0.6)'}} onClick={handleSubmit}>
-                            SUBMIT
+                            SUBMIT DISEASE
                         </Button>
                     </Box>
 
             </Paper>
-
+            <Divider/>
             <Paper elevation={3} style={paperStyle}>
                 <Box display="flex" justifyContent="center" alignItems="center" height={50}>
-                    <h1>Add a Disease</h1>
+                    <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding:'10px'}}>
+                        REPORT A DISEASE
+                    </Typography>
                 </Box>
 
                 {/* Select for Farmers */}
                 <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
-                    <InputLabel>Farm Land</InputLabel>
+                    <InputLabel>Select the Farm Land</InputLabel>
                     <Select
                         value={selectedFarmland}
                         onChange={(e) => setSelectedFarmland(e.target.value)}
@@ -206,7 +211,7 @@ export default function ReportDisease() {
                 </FormControl>
 
                 <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
-                    <InputLabel>Disease</InputLabel>
+                    <InputLabel>Select the Disease</InputLabel>
                     <Select
                         value={selectedDisease}
                         onChange={(e) => setSelectedDisease(e.target.value)}
@@ -226,7 +231,7 @@ export default function ReportDisease() {
                 <Box display="flex" justifyContent="left" alignItems="center" height={50} margin="auto">
                     <Button variant="contained" color="primary" fullWidth
                             onClick={handleDiseaseSubmit} style={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}}>
-                        SUBMIT
+                        Report a disease
                     </Button>
                 </Box>
             </Paper>

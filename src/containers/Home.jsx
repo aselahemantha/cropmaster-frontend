@@ -15,7 +15,6 @@ import MuiAlert from '@mui/material/Alert';
 import backgroundImage from '../assets/background/background.jpg';
 import { Link, useNavigate } from 'react-router-dom';
 import {useNic} from "../components/NicContext.jsx";
-import { borderRadius } from '@mui/system';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -42,7 +41,16 @@ const Home = () => {
             transform: 'scale(1.1)', // Enlarge the size on hover
         },
 
+        maxWidth: '100%', // Set the maximum width to 100% of the parent container
+        width: '100%',    // Set the actual width to 100% of the available space
 
+        /* Media query for larger screen sizes */
+        '@media (min-width: 1200px)': {
+            maxWidth: '1200px', // Set a maximum width for large screens
+            width: '100%',      // Keep the width at 100%
+            padding: '0 20px',  // Add padding on the sides if needed
+            margin: '0 auto',   // Center the container horizontally
+        }
 
     };
 

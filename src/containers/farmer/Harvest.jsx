@@ -5,7 +5,7 @@ import {
     MenuItem,
     Button,
     Container,
-    Paper, TextField,
+    Paper, TextField, InputLabel, FormControl,
 } from '@mui/material';
 import {useNic} from "../../components/NicContext.jsx";
 import backgroundImg from '../../assets/background/background1.jpg'
@@ -111,8 +111,8 @@ const AddHarvestMethod = () => {
     return (
         <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh' ,paddingTop: '20px',paddingBottom: '20px'}}>
             <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Add Harvest Method
+                <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
+                    ADD A NEW HARVEST METHOD TO THE DATABASE
                 </Typography>
                 <TextField
                     label="Method"
@@ -150,35 +150,42 @@ const AddHarvestMethod = () => {
             </Paper>
 
             <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Assign Harvest Method to Farmland
+                <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
+                    ASSIGN HARVEST METHOD TO A FARMLAND
                 </Typography>
-                <Select
-                    value={selectedHarvestMethod}
-                    onChange={(e) => setSelectedHarvestMethod(e.target.value)}
-                    fullWidth
-                    label="Select Harvest Method"
-                    sx={{ mt: 2 }}
-                >
-                    {harvestMethods.map((method) => (
-                        <MenuItem key={method.methodID} value={method.methodID}>
-                            {method.method}
-                        </MenuItem>
-                    ))}
-                </Select>
-                <Select
-                    value={selectedFarmland}
-                    onChange={(e) => setSelectedFarmland(e.target.value)}
-                    fullWidth
-                    label="Select Farmland"
-                    sx={{ mt: 2 }}
-                >
-                    {farmlands.map((farmland) => (
-                        <MenuItem key={farmland.farmlandID} value={farmland.farmlandID}>
-                            {farmland.name}
-                        </MenuItem>
-                    ))}
-                </Select>
+
+                <FormControl fullWidth sx={{ mt: 2 }}>
+                    <InputLabel>Select the Farmland</InputLabel>
+                    <Select
+                        value={selectedFarmland}
+                        onChange={(e) => setSelectedFarmland(e.target.value)}
+                        fullWidth
+                        label="Select Farmland"
+                        sx={{ mt: 2 }}
+                    >
+                        {farmlands.map((farmland) => (
+                            <MenuItem key={farmland.farmlandID} value={farmland.farmlandID}>
+                                {farmland.name}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <FormControl fullWidth sx={{ mt: 2 }}>
+                    <InputLabel>Select the Harvest Method</InputLabel>
+                    <Select
+                        value={selectedHarvestMethod}
+                        onChange={(e) => setSelectedHarvestMethod(e.target.value)}
+                        fullWidth
+                        label="Select Harvest Method"
+                        sx={{ mt: 2 }}
+                    >
+                        {harvestMethods.map((method) => (
+                            <MenuItem key={method.methodID} value={method.methodID}>
+                                {method.method}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
                 <Button
                     variant="contained"
                     onClick={handleAssignHarvest}

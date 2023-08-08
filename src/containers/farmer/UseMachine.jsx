@@ -9,7 +9,7 @@ import {
     FormControl,
     InputLabel,
     Select,
-    MenuItem
+    MenuItem, Divider
 } from '@mui/material';
 import Box from "@mui/material/Box";
 import {useNic} from "../../components/NicContext.jsx";
@@ -98,12 +98,14 @@ const AddMachine = () => {
         }
     };
 
-    const handleChemicalUsageSubmit = () => {
+    const handleMachineUsageSubmit = () => {
         // Prepare the data object to send in the POST request
         const data = {
             farmlandID: selectedFarmland,
             machineryID: selectedMachinery,
             nic: nic,
+            machineryName: machineryData.find((machine) => machine.machineID === selectedMachinery)?.name,
+            date: new Date().toISOString(),
         };
 
         // Make the POST request using fetch
@@ -135,8 +137,8 @@ const AddMachine = () => {
     return (
         <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh' ,paddingTop: '20px',paddingBottom: '20px'}}>
             <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Add Machine
+                <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
+                    ADD A NEW MACHINERY TO THE DATABASE
                 </Typography>
                 <TextField
                     label="Name"
@@ -179,19 +181,19 @@ const AddMachine = () => {
                     sx={{ mb: 2 }}
                 />
                 <Button variant="contained" onClick={handleAddMachine} fullWidth sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}}>
-                    Add Machine
+                    ADD MACHINERY
                 </Button>
             </Paper>
 
-
+            <Divider/>
             <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
                 <Box display="flex" justifyContent="center" alignItems="center" height={50}>
-                    <h1>Add a Disease</h1>
+                    <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
+                        REPORT A MACHINERY USAGE
+                    </Typography>
                 </Box>
-
-                Select for Farmers
                 <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
-                    <InputLabel>Farm Land</InputLabel>
+                    <InputLabel>Select the Farm Land</InputLabel>
                     <Select
                         value={selectedFarmland}
                         onChange={(e) => setSelectedFarmland(e.target.value)}
@@ -206,7 +208,7 @@ const AddMachine = () => {
                 </FormControl>
 
                 <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
-                    <InputLabel>Chemical</InputLabel>
+                    <InputLabel>Select the Machinery</InputLabel>
                     <Select
                         value={selectedMachinery}
                         onChange={(e) => setSelectedMachinery(e.target.value)}
@@ -221,8 +223,8 @@ const AddMachine = () => {
                 </FormControl>
                 <br />
                 <Box display="flex" justifyContent="left" alignItems="center" height={50} margin="auto">
-                    <Button variant="contained" color="primary" sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}} >
-                        SUBMIT
+                    <Button fullWidth variant="contained" color="primary" sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}} onClick={handleMachineUsageSubmit} >
+                        ADD A MACHINERY USAGE
                     </Button>
                 </Box>
             </Paper>

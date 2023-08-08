@@ -9,6 +9,7 @@ import { Padding } from '@mui/icons-material';
 
 const FarmerHome = () => {
     const { nic } = useNic(); // Get the nic value from context
+    const paperStyle = { padding: '50px 20px', width: '500', margin: '20px auto',backgroundColor: 'rgba(1, 32, 93, 0.2)' ,};
 
     const [cropedFarmland, setcropedFarmland] = useState([]);
     const [uncropedFarmland, setuncropedFarmland] = useState([]);
@@ -140,17 +141,23 @@ const FarmerHome = () => {
                 marginLeft:'20px',
                 marginRight:'20px',
             }}>
-                <Typography sx={styles.pageTitle} variant="h5">
-                    Welcome again! Mr. - {nic} -
+                <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding:'10px'}}>
+                    WELCOME AGAIN!
                 </Typography>
-                <Divider sx={styles.divider} />
-
-                <Typography sx={styles.pageTitle} variant="h5">
-                    Farmlands that has cropped
+            </Box>
+            <Divider/>
+            <Box sx={{
+                backgroundColor: 'rgba(1, 32, 93, 0.2)', // Background color for the form box
+                padding: '20px',
+                borderRadius: '8px',
+                marginTop:'20px',
+                marginBottom:'20px',
+                marginLeft:'20px',
+                marginRight:'20px',
+            }}>
+                <Typography variant="h6" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding:'10px'}}>
+                    CULTIVATED FARMLANDS
                 </Typography>
-
-
-
                 <Box sx={styles.columnsContainer}>
                     {cropedFarmland.map((farmland) => (
                         <FarmLandCard
@@ -165,14 +172,20 @@ const FarmerHome = () => {
                         />
                     ))}
                 </Box>
-
-                <Divider sx={styles.divider} />
-
-                <Typography sx={styles.pageTitle} variant="h5">
-                    Farmlands that has uncropped
-                </Typography>
-
             </Box>
+                <Divider/>
+            <Box sx={{
+                backgroundColor: 'rgba(1, 32, 93, 0.2)', // Background color for the form box
+                padding: '20px',
+                borderRadius: '8px',
+                marginTop:'20px',
+                marginBottom:'20px',
+                marginLeft:'20px',
+                marginRight:'20px',
+            }}>
+                <Typography variant="h6" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding:'10px'}}>
+                    UNCULTIVATED FARMLANDS
+                </Typography>
 
             <Box sx={styles.columnsContainer}>
                 {uncropedFarmland.map((farmland) => (
@@ -184,25 +197,17 @@ const FarmerHome = () => {
                         size={farmland.size}
                         location={farmland.location}
                         experience={farmland.experience}
-                        isCropped={false} // Indicate that this is an uncropped farmland
+                        isCropped={false}
                     />
                 ))}
             </Box>
-
-            <Box sx={{
-                backgroundColor: 'rgba(1, 32, 93, 0.2)', // Background color for the form box
-                padding: '20px',
-                borderRadius: '8px',
-                marginTop:'20px',
-                marginBottom:'20px',
-                marginLeft:'20px',
-                marginRight:'20px',
-            }}>
+            </Box>
+            <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
                 <Box display="flex" justifyContent="center" alignItems="center" height={50}>
-                    <h1>Add a Crop</h1>
+                    <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
+                        ADD A NEW CROP TO THE DATABASE
+                    </Typography>
                 </Box>
-
-                <h3>Enter details here!</h3>
                 <TextField
                     id="outlined-basic"
                     label="Name"
@@ -230,67 +235,63 @@ const FarmerHome = () => {
                 />
 
                 <Box display="flex" justifyContent="left" alignItems="center" height={50} margin="auto">
-                    <Button variant="contained" color="primary" onClick={handleSubmit}  sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}}>
-                        SUBMIT
-                    </Button>
-                </Box>
-
-            </Box>
-
-            <Box sx={{
-                backgroundColor: 'rgba(1, 32, 93, 0.2)', // Background color for the form box
-                padding: '20px',
-                borderRadius: '8px',
-                marginTop:'20px',
-                marginBottom:'20px',
-                marginLeft:'20px',
-                marginRight:'20px',
-            }} >
-                <Typography sx={styles.pageTitle} variant="h5">
-                    Assign Crops to Uncropped Farmlands
-                </Typography>
-                <Box sx={styles.columnsContainer}>
-                    <FormControl sx={styles.item} fullWidth variant="outlined">
-                        <InputLabel>Farmland</InputLabel>
-                        <Select
-                            value={selectedFarmland}
-                            onChange={(e) => setSelectedFarmland(e.target.value)}
-                            label="Farmland"
-                        >
-                            {uncropedFarmland.map((farmland) => (
-                                <MenuItem key={farmland.farmlandID} value={farmland.farmlandID}>
-                                    {farmland.name}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-
-                    <FormControl sx={styles.item} fullWidth variant="outlined">
-                        <InputLabel>Crop</InputLabel>
-                        <Select
-                            value={selectedCrop}
-                            onChange={(e) => setSelectedCrop(e.target.value)}
-                            label="Crop"
-                        >
-                            {crops.map((crop) => (
-                                <MenuItem key={crop.cropId} value={crop.cropId}>
-                                    {crop.name}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-
                     <Button
                         variant="contained"
-                        color="primary"
-                        onClick={handleAssignCrop}
-                        sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)' }}
-                    >
-                        Assign Crop
-                    </Button>
+                        onClick={handleSubmit}
+                        fullWidth
+                        sx={{ mt: 3 ,backgroundColor: 'rgba(1, 32, 93, 0.6)'}}
 
+                    >
+                        Assign Crop to Farmland
+                    </Button>
                 </Box>
-            </Box>
+            </Paper>
+
+
+            <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
+                <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
+                    ASSIGN CROP TO A FARMLAND
+                </Typography>
+                <FormControl fullWidth sx={{ mt: 2 }}>
+                    <InputLabel>Select the Farmland</InputLabel>
+                    <Select
+                        value={selectedFarmland}
+                        onChange={(e) => setSelectedFarmland(e.target.value)}
+                        fullWidth
+                        label="Select Farmland"
+                        sx={{ mt: 2 }}
+                    >
+                        {uncropedFarmland.map((farmland) => (
+                            <MenuItem key={farmland.farmlandID} value={farmland.farmlandID}>
+                                {farmland.name}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <FormControl fullWidth sx={{ mt: 2 }}>
+                    <InputLabel>Select the Crop</InputLabel>
+                    <Select
+                        value={selectedCrop}
+                        onChange={(e) => setSelectedCrop(e.target.value)}
+                        label="Crop"
+                    >
+                        {crops.map((crop) => (
+                            <MenuItem key={crop.cropId} value={crop.cropId}>
+                                {crop.name}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <Button
+                    variant="contained"
+                    onClick={handleAssignCrop}
+                    fullWidth
+                    sx={{ mt: 3 ,backgroundColor: 'rgba(1, 32, 93, 0.6)'}}
+
+                >
+                    Assign Crop to Farmland
+                </Button>
+            </Paper>
 
         </Box>
     );
@@ -298,90 +299,13 @@ const FarmerHome = () => {
 
 export default FarmerHome;
 
-
 /**
  * @type {import("@mui/material").SxProps}
  */
 
 const styles = {
-    pageTitle: {
-        mb: 2
-    },
     columnsContainer: {
-        columns: '280px 3',
-        maxWidth: 1400
-    },
-    item: {
-        mb: 2,
-    },
-    divider: {
-        my: 2
-    },
-    videoStatsRow: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        mt: 2,
-        '&:hover': {
-            color: 'primary.main',
-            cursor: 'pointer'
-        }
-    },
-    cardAction: {
-        mt: 2
-    },
-    ideaContent: {
-        display: 'flex',
-    },
-    ideaImage: {
-        width: 80,
-        alignSelf: 'center',
-        ml: 5
-    },
-    ideaQuestion: {
-        fontSize: '0.9rem',
-        fontWeight: 500,
-        my: 2
-    },
-    avatar: {
-        width: '30px',
-        height: 'auto',
-        marginRight: 1
-    },
-    postStats: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gridAutoRows: '25px'
-    },
-    postAuthorSection: {
-        display: 'flex',
-        alignItems: 'center',
-        my: 3
-    },
-    postMeta: {
-        mr: 1,
-        fontSize: '0.8rem',
-        color: 'neutral.normal'
-    },
-    videoThumbnail: {
-        width: 80,
-        ml: 'auto'
-    },
-    commentRow: {
-        display: 'flex',
-        alignItems: 'flex-start',
-        mt: 2
-    },
-    commentDetailsSection: {
-        display: 'flex',
-        alignItems: 'center',
-    },
-    commentText: {
-        fontSize: '0.8rem',
-        mt: 0.5,
-        mr: 2
-    },
-    insiderImage: {
-        width: '100%',
-        mt: 1
+        columns: '500px 2',
+        maxWidth: 3000,
     }
 }

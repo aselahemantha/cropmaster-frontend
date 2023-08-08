@@ -9,7 +9,7 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem, Divider
 } from '@mui/material';
 import Box from "@mui/material/Box";
 import {useNic} from "../../components/NicContext.jsx";
@@ -105,6 +105,8 @@ const AddChemical = () => {
       farmlandID: selectedFarmland,
       chemicalID: selectedChemical,
       nic: nic,
+      chemicalName: chemData.find((chem) => chem.chemicalID === selectedChemical)?.name,
+      date: new Date().toISOString(),
     };
 
     // Make the POST request using fetch
@@ -125,6 +127,7 @@ const AddChemical = () => {
           // Handle the response from the backend if needed
           console.log('Form submitted successfully:', responseData);
           // Add any logic you need here after the form is successfully submitted
+          window.location.reload();
         })
         .catch((error) => {
           // Handle errors
@@ -137,8 +140,8 @@ const AddChemical = () => {
   return (
       <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh',paddingTop: '20px',paddingBottom: '20px' }}>
         <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
-          <Typography variant="h4" align="center" gutterBottom>
-            Add Chemical
+          <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
+            ADD A NEW CHEMICAL TO THE DATABASE
           </Typography>
           <TextField
               label="Name"
@@ -183,21 +186,20 @@ const AddChemical = () => {
               sx={{ mb: 2 }}
           />
           <Grid container justifyContent="flex-end" sx={{ mt: 4 }}>
-            <Button variant="contained" onClick={handleAddChemical} sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}}>
-              Add Chemical
+            <Button fullWidth variant="contained" onClick={handleAddChemical} sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}}>
+              ADD CHEMICAL
             </Button>
           </Grid>
         </Paper>
-
-
+        <Divider/>
         <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
           <Box display="flex" justifyContent="center" alignItems="center" height={50}>
-            <h1>Add a Disease</h1>
+            <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding:'10px'}}>
+              REPORT A CHEMICAL APPLICATION
+            </Typography>
           </Box>
-
-          Select for Farmers
           <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
-            <InputLabel>Farm Land</InputLabel>
+            <InputLabel>Select the Farm Land</InputLabel>
             <Select
                 value={selectedFarmland}
                 onChange={(e) => setSelectedFarmland(e.target.value)}
@@ -212,7 +214,7 @@ const AddChemical = () => {
           </FormControl>
 
           <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
-            <InputLabel>Chemical</InputLabel>
+            <InputLabel>Select the Chemical</InputLabel>
             <Select
                 value={selectedChemical}
                 onChange={(e) => setSelectedChemical(e.target.value)}
@@ -227,8 +229,8 @@ const AddChemical = () => {
           </FormControl>
           <br />
           <Box display="flex" justifyContent="left" alignItems="center" height={50} margin="auto">
-            <Button variant="contained" color="primary" onClick={handleChemicalUsageSubmit} sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}} >
-              SUBMIT
+            <Button fullWidth variant="contained" color="primary" onClick={handleChemicalUsageSubmit} sx={{backgroundColor: 'rgba(1, 32, 93, 0.6)'}} >
+              REPORT A CHEMICAL USAGE
             </Button>
           </Box>
         </Paper>
