@@ -150,7 +150,7 @@ const AddHarvestMethod = () => {
             </Paper>
 
             <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
-                <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
+                <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding:'10px'}}>
                     ASSIGN HARVEST METHOD TO A FARMLAND
                 </Typography>
 

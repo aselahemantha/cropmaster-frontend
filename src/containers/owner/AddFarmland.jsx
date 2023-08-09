@@ -1,6 +1,17 @@
 // AddFarmland.jsx
 import React, {useEffect, useState} from 'react';
-import {Container, Typography, TextField, Button, Box, MenuItem, Select} from '@mui/material';
+import {
+    Container,
+    Typography,
+    TextField,
+    Button,
+    Box,
+    MenuItem,
+    Select,
+    Paper,
+    InputLabel,
+    FormControl
+} from '@mui/material';
 import {useNic} from "../../components/NicContext.jsx";
 import backgroundImg from '../../assets/background/background1.jpg'
 
@@ -18,6 +29,9 @@ const AddFarmland = () => {
 
     const [selectedAssignFarmer, setSelectedAssignFarmer] = useState('');
     const [selectedAssignFarmland, setSelectedAssignFarmland] = useState('');
+
+    const paperStyle = { padding: '50px 20px', width: '500', margin: '20px auto',backgroundColor: 'rgba(1, 32, 93, 0.2)' ,marginTop: '20px'};
+
 
     useEffect(() => {
         // Fetch list of farmers
@@ -111,118 +125,146 @@ const AddFarmland = () => {
 
 
     return (
-        <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh',marginTop: '20px',marginBottom: '20px', paddingTop: 2, paddingRight: 4, paddingBottom: 6, paddingLeft: 8 , margin: 4 }}>
-            <Typography variant="h4" align="center" mt={5} mb={3}>
-                Add Farmland
-            </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <TextField
-                    label="Name"
-                    variant="outlined"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    fullWidth
-                    sx={{ mb: 2, width: '70%' }}
-                />
-                <TextField
-                    label="Size"
-                    variant="outlined"
-                    value={size}
-                    onChange={(e) => setSize(e.target.value)}
-                    fullWidth
-                    sx={{ mb: 2, width: '70%' }}
-                />
-                <TextField
-                    label="Location"
-                    variant="outlined"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    fullWidth
-                    sx={{ mb: 3, width: '70%' }}
-                />
-                <Button variant="contained" color="primary" onClick={handleAddFarmland}>
-                    Add Farmland
-                </Button>
-            </Box>
+        <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh' ,paddingTop: '20px',paddingBottom: '20px'}}>
+            <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
+                <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
+                    ADD A NEW FARM LAND TO THE DATABASE
+                </Typography>
 
-            <Typography variant="h4" align="center" mt={5} mb={3}>
-                Assign Farmer to Farmland
-            </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Select
-                    value={selectedFarmer}
-                    onChange={(e) => setSelectedFarmer(e.target.value)}
-                    displayEmpty
-                    sx={{ mb: 2, width: '70%' }}
-                >
-                    <MenuItem value="" disabled>
-                        Select a Farmer
-                    </MenuItem>
-                    {farmers.map(farmer => (
-                        <MenuItem key={farmer.nic} value={farmer.nic}>
-                            {farmer.name}
-                        </MenuItem>
-                    ))}
-                </Select>
-                <Select
-                    value={selectedFarmland}
-                    onChange={(e) => setSelectedFarmland(e.target.value)}
-                    displayEmpty
-                    sx={{ mb: 3, width: '70%' }}
-                >
-                    <MenuItem value="" disabled>
-                        Select a Farmland
-                    </MenuItem>
-                    {farmlands.map(farmland => (
-                        <MenuItem key={farmland.farmlandID} value={farmland.farmlandID}>
-                            {farmland.name}
-                        </MenuItem>
-                    ))}
-                </Select>
-                <Button variant="contained" color="primary" onClick={handleAssignFarmer}>
-                    Assign Farmer to Farmland
-                </Button>
-            </Box>
+                    <TextField
+                        label="Name"
+                        variant="outlined"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        fullWidth
+                        sx={{ mt: 2 }}
+                    />
+                    <TextField
+                        label="Size"
+                        variant="outlined"
+                        value={size}
+                        onChange={(e) => setSize(e.target.value)}
+                        fullWidth
+                        sx={{ mt: 2 }}
+                    />
+                    <TextField
+                        label="Location"
+                        variant="outlined"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        fullWidth
+                        sx={{ mt: 2 }}
+                    />
+                <Button
+                    variant="contained"
+                    onClick={handleAddFarmland}
+                    fullWidth
+                    sx={{ mt: 3 ,backgroundColor: 'rgba(1, 32, 93, 0.6)'}}
 
-            <Typography variant="h4" align="center" mt={5} mb={3}>
-                Change Assign Farmer to Farmland
-            </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Select
-                    value={selectedAssignFarmer}
-                    onChange={(e) => setSelectedAssignFarmer(e.target.value)}
-                    displayEmpty
-                    sx={{ mb: 2, width: '70%' }}
                 >
-                    <MenuItem value="" disabled>
-                        Select a Farmer
-                    </MenuItem>
-                    {farmers.map(farmer => (
-                        <MenuItem key={farmer.nic} value={farmer.nic}>
-                            {farmer.name}
-                        </MenuItem>
-                    ))}
-                </Select>
-                <Select
-                    value={selectedAssignFarmland}
-                    onChange={(e) => setSelectedAssignFarmland(e.target.value)}
-                    displayEmpty
-                    sx={{ mb: 3, width: '70%' }}
-                >
-                    <MenuItem value="" disabled>
-                        Select a Farmland
-                    </MenuItem>
-                    {nicFarmlands.map(farmland => (
-                        <MenuItem key={farmland.farmlandID} value={farmland.farmlandID}>
-                            {farmland.name}
-                        </MenuItem>
-                    ))}
-                </Select>
-                <Button variant="contained" color="primary" onClick={handleUpdateAssignFarmer}>
-                    Change Assign Farmer to Farmland
-                </Button>
-            </Box>
+                        ADD FARMLAND
+                    </Button>
 
+            </Paper>
+            <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
+                <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding:'10px'}}>
+                    ASSIGN FARMER TO A FARMLAND
+                </Typography>
+                <FormControl fullWidth sx={{ mt: 2 }}>
+                    <InputLabel>Select the Farmer</InputLabel>
+                    <Select
+                        value={selectedFarmer}
+                        onChange={(e) => setSelectedFarmer(e.target.value)}
+                        displayEmpty
+                        fullWidth
+                        sx={{ mb: 2}}
+                    >
+                        <MenuItem value="" disabled>
+                        </MenuItem>
+                        {farmers.map(farmer => (
+                            <MenuItem key={farmer.nic} value={farmer.nic}>
+                                {farmer.name}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <FormControl fullWidth sx={{ mt: 2 }}>
+                    <InputLabel>Select the Farmland</InputLabel>
+                    <Select
+                        value={selectedFarmland}
+                        onChange={(e) => setSelectedFarmland(e.target.value)}
+                        displayEmpty
+                        fullWidth
+                        sx={{ mb: 3, width: '70%' }}
+                    >
+                        <MenuItem value="" disabled>
+                        </MenuItem>
+                        {farmlands.map(farmland => (
+                            <MenuItem key={farmland.farmlandID} value={farmland.farmlandID}>
+                                {farmland.name}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <Button
+                    variant="contained"
+                    onClick={handleAssignFarmer}
+                    fullWidth
+                    sx={{ mt: 3,backgroundColor: 'rgba(1, 32, 93, 0.6)' }}
+                >
+                        ASSIGN FARMER
+                    </Button>
+            </Paper>
+            <Paper elevation={3} sx={{ p: 4, mt: 10 }} style={paperStyle}>
+                <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding:'10px'}}>
+                    CHANGE ASSIGN FARMER TO A FARMLAND
+                </Typography>
+                <FormControl fullWidth sx={{ mt: 2 }}>
+                    <InputLabel>Select the Farmer</InputLabel>
+                    <Select
+                        value={selectedAssignFarmer}
+                        onChange={(e) => setSelectedAssignFarmer(e.target.value)}
+                        displayEmpty
+                        fullWidth
+                        sx={{ mb: 2}}
+                    >
+                        <MenuItem value="" disabled>
+                        </MenuItem>
+                        {farmers.map(farmer => (
+                            <MenuItem key={farmer.nic} value={farmer.nic}>
+                                {farmer.name}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <FormControl fullWidth sx={{ mt: 2 }}>
+                    <InputLabel>Select the Farmland</InputLabel>
+                    <Select
+                        value={selectedAssignFarmland}
+                        onChange={(e) => setSelectedAssignFarmland(e.target.value)}
+                        displayEmpty
+                        fullWidth
+                        sx={{ mb: 3}}
+                    >
+                        <MenuItem value="" disabled>
+                        </MenuItem>
+                        {nicFarmlands.map(farmland => (
+                            <MenuItem key={farmland.farmlandID} value={farmland.farmlandID}>
+                                {farmland.name}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <Button
+                    variant="contained"
+                    onClick={handleUpdateAssignFarmer}
+                    fullWidth
+                    sx={{ mt: 3,backgroundColor: 'rgba(1, 32, 93, 0.6)' }}
+                >
+                        CHANGE ASSIGN FARMER
+                    </Button>
+
+            </Paper>
         </Container>
     );
 };

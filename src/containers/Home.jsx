@@ -15,6 +15,12 @@ import MuiAlert from '@mui/material/Alert';
 import backgroundImage from '../assets/background/background.jpg';
 import { Link, useNavigate } from 'react-router-dom';
 import {useNic} from "../components/NicContext.jsx";
+import '../App.css';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -60,6 +66,7 @@ const Home = () => {
     const [password, setPassword] = useState('');
     const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const { setNic } = useNic(); // Get the setNic function from context
     const boxStyle = {
@@ -67,11 +74,7 @@ const Home = () => {
         padding :'40px',
         borderRadius:'10px',
         color :'rgba(0, 0, 0,1)',
-        transition: 'transform 0.3s ease',
-        transform: 'scale(1)', // Initial scale
-        '&:hover': {
-            transform: 'scale(1.1)', // Enlarge the size on hover
-        },
+
 
 
     };
@@ -118,12 +121,16 @@ const Home = () => {
         setErrorMessage('');
     };
 
+    const handleTogglePasswordVisibility = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
+
     return (
         <Container style={containerStyle}>
-            <Typography variant="h2" align="center" color="text.primary">
+            <Typography variant="h2" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
                 Welcome to Your Farm App
             </Typography>
-            <Box mt={4} style={boxStyle}>
+            <Box mt={4}  className="enlarge-on-hover"  style={boxStyle}>
                 <TextField
                     label="NIC"
                     fullWidth
@@ -139,7 +146,22 @@ const Home = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     style={textFieldStyle}
+                    type={showPassword ? 'text' : 'password'}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    edge="end"
+                                >
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    }}
                 />
+
                 <FormControl component="fieldset">
                     <RadioGroup
                         row
@@ -158,18 +180,17 @@ const Home = () => {
                     </Button>
                 </Box>
             </Box>
-            <Box mt={2}>
+            <Box mt={2} dispaly='flex' justifyContent='center'>
                 <Button variant="text" color="primary" onClick={() => navigate("/signupfarmer")} style={{
                     borderRadius: '5px',
                     padding: '8px 16px',
                     color: '#FFFFFF',
-                    backgroundColor: 'rgba(1, 32, 93, 0.6)'
+                    backgroundColor: 'rgba(1, 32, 93, 0.6)',
+                    marginRight: '10px',
                 }}>
                     Sign Up as Farmer
                 </Button>
-            </Box>
 
-            <Box mt={2}>
                 <Button variant="text" color="primary" onClick={() => navigate("/signupowner")} style={{
 
                     borderRadius: '5px',

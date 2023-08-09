@@ -10,6 +10,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import MuiAlert from '@mui/material/Alert';
 import backgroundImg from '../../assets/background/background.jpg';
+import backgroundImage from "../../assets/background/background.jpg";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -26,6 +27,39 @@ const SignupFarmer = () => {
     const navigate = useNavigate();
     const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+
+    const containerStyle = {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        transition: 'transform 0.3s ease',
+        transform: 'scale(1)', // Initial scale
+        '&:hover': {
+            transform: 'scale(1.1)', // Enlarge the size on hover
+        },
+
+        maxWidth: '100%', // Set the maximum width to 100% of the parent container
+        width: '100%',    // Set the actual width to 100% of the available space
+
+        /* Media query for larger screen sizes */
+        '@media (min-width: 1200px)': {
+            maxWidth: '1200px', // Set a maximum width for large screens
+            width: '100%',      // Keep the width at 100%
+            padding: '0 20px',  // Add padding on the sides if needed
+            margin: '0 auto',   // Center the container horizontally
+        }
+
+    };
 
     const handleSignUp = async () => {
         if (!nic || !name || !password || !age) {
@@ -72,7 +106,7 @@ const SignupFarmer = () => {
     };
 
     return (
-        <Container style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh', paddingTop: '20px', paddingBottom: '20px' }}>
+        <Container style={containerStyle}>
             <Box
                 sx={{
                     backgroundColor: 'rgba(1, 32, 93, 0.2)', // Background color for the form box
@@ -80,8 +114,8 @@ const SignupFarmer = () => {
                     borderRadius: '8px',
                 }}
             >
-                <Typography variant="h4" align="center" gutterBottom>
-                    Sign Up
+                <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding:'10px'}}>
+                    SIGN UP AS A FARMER
                 </Typography>
                 <TextField
                     label="NIC *"
@@ -130,7 +164,7 @@ const SignupFarmer = () => {
                 <Button variant="contained" color="primary" onClick={handleSignUp}>
                     Sign Up
                 </Button>
-                <Typography variant="body2" align="center" mt={2}>
+                <Typography variant="h6" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding:'10px'}}>
                     Already have an account? <Link to="/">Log in</Link>
                 </Typography>
             </Box>

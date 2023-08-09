@@ -16,14 +16,25 @@ const FarmerDetails = () => {
 
     return (
         <Box style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover', minHeight: '100vh',marginTop: '20px',marginBottom: '20px', paddingTop: 2, paddingRight: 4, paddingBottom: 6, paddingLeft: 8 , margin: 4 }}>
-            <Typography variant="h5">All Farmers Details</Typography>
+            <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', color: 'rgba(1, 32, 93,1)', padding: '10px' }}>
+                ALL FARMER DETAILS
+            </Typography>
             <Divider />
             <br/>
-            {farmers.map(farmer => (
-                <FarmerCard key={farmer.farmerID} farmer={farmer} />
-            ))}
+            <Box sx={styles.columnsContainer}>
+                {farmers.map(farmer => (
+                    <FarmerCard key={farmer.farmerID} farmer={farmer} />
+                ))}
+            </Box>
         </Box>
     );
 };
 
 export default FarmerDetails;
+
+const styles = {
+    columnsContainer: {
+        columns: '500px 2',
+        maxWidth: 3000,
+    }
+}
